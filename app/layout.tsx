@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import "./luvinski.css";
+import "./gallery.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.github.io";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gshergd.github.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

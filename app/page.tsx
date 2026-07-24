@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Luvinski — Portfolio Library",
     description: "Systems, communities, game experiments, visual stories, and the work worth carrying forward.",
-    images: [{ url: "/assets/portfolio/project-01.webp" }],
+    images: [{ url: "/assets/portfolio/hero-legacy.webp" }],
   },
 };
 

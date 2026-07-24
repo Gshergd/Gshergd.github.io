@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { useGalleryItems } from "@/features/gallery/galleryClient";
+import type { GalleryItem } from "@/features/gallery/galleryData";
 
 type DetailView = {
   image: string;
@@ -9,6 +11,7 @@ type DetailView = {
   description: string;
   href?: string;
   action?: string;
+  galleryItem?: GalleryItem;
 };
 
 const projects = [
@@ -117,15 +120,6 @@ const missions = [
   },
 ].slice(0, 5);
 
-const fieldNotes = [
-  "Island Light", "After the Fire", "An Unexpected Ally", "Roads Between", "A Complicated Room", "Desert Transit", "Negotiations", "A New City",
-  "The Pearl", "Open Water", "Industrial Night", "Midnight Run", "Mountain Curve", "Backstreet Detour", "Golden Hour", "The Long Way Home",
-].map((title, index) => ({
-  title,
-  image: `/assets/portfolio/field-${String(index + 1).padStart(2, "0")}.webp`,
-  copy: "A fragment from the wider visual archive: games, experiments, characters, environments, and the details that keep the next project moving.",
-}));
-
 const faqs = [
   { q: "Who is Luvinski?", a: "Luvinski is the creative identity behind Gshergd, DikAgg007, The Secretary, this portfolio, and a long trail of community systems, game experiments, websites, videos, and unfinished ideas worth returning to." },
   { q: "What kind of work lives here?", a: "Discord automation, websites, documentation, infrastructure, community platforms, video work, Unity prototypes, Minecraft experiments, visual studies, and the character archives that make the portfolio feel like a library instead of a résumé." },
@@ -135,10 +129,13 @@ const faqs = [
 ];
 
 export default function LuvinskiPortfolio() {
+  const { items: galleryItems } = useGalleryItems();
+  const homeGallery = galleryItems.slice(0, 10);
   const [loaded, setLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [detailView, setDetailView] = useState<DetailView | null>(null);
+  const [fullscreenView, setFullscreenView] = useState<GalleryItem | null>(null);
   const [faq, setFaq] = useState(0);
 
   useEffect(() => {
@@ -173,10 +170,10 @@ export default function LuvinskiPortfolio() {
   }, []);
 
   useEffect(() => {
-    if (!detailView) return;
+    if (!detailView && !fullscreenView) return;
     const previousOverflow = document.body.style.overflow;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setDetailView(null);
+      if (event.key === "Escape") { setDetailView(null); setFullscreenView(null); }
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKeyDown);
@@ -184,7 +181,21 @@ export default function LuvinskiPortfolio() {
       document.body.style.overflow = previousOverflow;
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [detailView]);
+  }, [detailView, fullscreenView]);
+
+  const openFullscreen = (item: GalleryItem) => {
+    setDetailView(null);
+    setFullscreenView(item);
+    window.requestAnimationFrame(() => {
+      const viewer = document.querySelector<HTMLElement>(".gallery-fullscreen");
+      void viewer?.requestFullscreen?.().catch(() => undefined);
+    });
+  };
+
+  const closeFullscreen = () => {
+    if (document.fullscreenElement) void document.exitFullscreen().catch(() => undefined);
+    setFullscreenView(null);
+  };
 
   const openProject = (project: (typeof projects)[number]) => setDetailView({
     image: project.image,
@@ -305,12 +316,12 @@ export default function LuvinskiPortfolio() {
         </div>
       </section>
 
-      <section className="section luv-field">
-        <div className="archive-head" data-reveal><div><p className="eyebrow">VISUAL FIELD NOTES</p><h2>Collected along<br />the long way around.</h2></div><p>Games, roads, characters, worlds, and experiments. Not every image became a product; all of them belong to the journey.</p></div>
+      <section className="section luv-field" id="gallery">
+        <div className="archive-head" data-reveal><div><p className="eyebrow">IMAGE GALLERY</p><h2>Images worth<br />keeping.</h2></div><div className="luv-gallery-intro"><p>Screenshots, experiments, games, characters, roads, and visual moments collected in one growing gallery.</p><a href="/gallery/">View the full gallery <span>→</span></a></div></div>
         <div className="luv-field-grid">
-          {fieldNotes.map((note, index) => (
-            <button type="button" key={note.image} data-reveal className={`field-${(index % 8) + 1}`} onClick={() => setDetailView({ image: note.image, title: note.title, kicker: `FIELD NOTE ${String(index + 1).padStart(2, "0")}`, description: note.copy })} aria-haspopup="dialog">
-              <img src={note.image} alt="" loading="lazy" decoding="async" /><span>{String(index + 1).padStart(2, "0")} <b>{note.title}</b></span>
+          {homeGallery.map((item, index) => (
+            <button type="button" key={item.id} data-reveal className={`field-${(index % 8) + 1}`} onClick={() => setDetailView({ image: item.image_url, title: item.title, kicker: `GALLERY IMAGE ${String(index + 1).padStart(2, "0")}`, description: item.description, galleryItem: item })} aria-haspopup="dialog">
+              <img src={item.image_url} alt={item.title} loading="lazy" decoding="async" /><span>{String(index + 1).padStart(2, "0")} <b>{item.title}</b></span>
             </button>
           ))}
         </div>
@@ -341,7 +352,7 @@ export default function LuvinskiPortfolio() {
       <footer data-reveal>
         <div className="footer-grid">
           <div className="footer-brand"><div><span className="brand-mark brand-image"><img src="/assets/brand/secretary-mark.png" alt="" /></span><h3>Luvinski<small>PORTFOLIO LIBRARY</small></h3></div><p>An independent archive of systems, communities, visual experiments, game ambitions, and the work worth carrying forward.</p></div>
-          <div><p className="eyebrow">EXPLORE</p><a href="#top">Legacy</a><a href="/ada-wong/">Ada Wong</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a><a href="#missions">Mission</a></div>
+          <div><p className="eyebrow">EXPLORE</p><a href="#top">Legacy</a><a href="/gallery/">Gallery</a><a href="/ada-wong/">Ada Wong</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a><a href="#missions">Mission</a></div>
           <div><p className="eyebrow">CONTACT</p><p>The Secretary is the official public presence and developer contact hub.</p><a className="footer-cta" href="https://thesecretary.xyz/" target="_blank" rel="noreferrer"><span>↗</span> Open The Secretary</a></div>
         </div>
         <div className="legal"><span>© 2026 The Secretary.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>
@@ -352,10 +363,12 @@ export default function LuvinskiPortfolio() {
           <div className="detail-modal-panel" onMouseDown={(event) => event.stopPropagation()}>
             <button className="detail-close" type="button" onClick={() => setDetailView(null)} aria-label="Close details">×</button>
             <div className="detail-media"><img src={detailView.image} alt={detailView.title} /></div>
-            <div className="detail-copy"><p className="eyebrow">{detailView.kicker}</p><h2 id="detail-title">{detailView.title}</h2><p>{detailView.description}</p>{detailView.href ? <a className="luv-modal-action" href={detailView.href} target={detailView.href.startsWith("http") ? "_blank" : undefined} rel={detailView.href.startsWith("http") ? "noreferrer" : undefined}>{detailView.action ?? "Visit project"}<span>↗</span></a> : <button type="button" onClick={() => setDetailView(null)}>Return to gallery <span>→</span></button>}</div>
+            <div className="detail-copy"><p className="eyebrow">{detailView.kicker}</p><h2 id="detail-title">{detailView.title}</h2><p>{detailView.description}</p>{detailView.href ? <a className="luv-modal-action" href={detailView.href} target={detailView.href.startsWith("http") ? "_blank" : undefined} rel={detailView.href.startsWith("http") ? "noreferrer" : undefined}>{detailView.action ?? "Visit project"}<span>↗</span></a> : <button type="button" onClick={() => detailView.galleryItem && openFullscreen(detailView.galleryItem)}>Fullscreen <span>⛶</span></button>}</div>
           </div>
         </div>
       )}
+
+      {fullscreenView && <div className="gallery-fullscreen"><img src={fullscreenView.image_url} alt={fullscreenView.title} /><div><strong>{fullscreenView.title}</strong><span>{fullscreenView.description}</span></div><button type="button" onClick={closeFullscreen} aria-label="Close fullscreen image">×</button></div>}
     </main>
   );
 }
