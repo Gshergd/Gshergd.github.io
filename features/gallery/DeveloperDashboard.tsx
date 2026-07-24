@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
 import {
   OWNER_EMAIL,
   consumeOwnerMagicLink,
@@ -108,7 +109,7 @@ export default function DeveloperDashboard() {
 
   return (
     <main className="developer-site">
-      <header className="developer-nav"><a href="/"><img src="/assets/brand/secretary-mark.png" alt="" /><span>Luvinski<small>DEVELOPER ACCESS</small></span></a><nav><a href="/">Legacy</a><a href="/gallery/">Gallery</a>{signedIn && <button type="button" onClick={logOut}>Sign out</button>}</nav></header>
+      <UniversalHeader />
 
       <section className="developer-hero"><div><p className="eyebrow">PRIVATE CONTROL ROOM</p><h1>Gallery<br />Developer.</h1><p>Publish, revise, and remove images from the public collection. Access is locked to one verified email address.</p><span><i /> MAGIC LINK AUTHENTICATION</span></div></section>
 
@@ -126,7 +127,7 @@ export default function DeveloperDashboard() {
           </div>
         ) : (
           <div className="developer-dashboard">
-            <div className="developer-dashboard-head"><div><p className="eyebrow">OWNER SESSION ACTIVE</p><h2>Manage the collection.</h2></div><span>{items.length} PUBLISHED IMAGES</span></div>
+            <div className="developer-dashboard-head"><div><p className="eyebrow">OWNER SESSION ACTIVE</p><h2>Manage the collection.</h2></div><div className="developer-session-actions"><span>{items.length} PUBLISHED IMAGES</span><button type="button" onClick={logOut}>Sign out</button></div></div>
             {message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}
             <form className="developer-add-card" onSubmit={addItem}><div><p className="eyebrow">ADD IMAGE</p><h3>Publish a new gallery entry.</h3><p>JPG, PNG, or WebP. Maximum file size: 10 MB.</p></div><label className="developer-file">Image<input id="gallery-file" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => setFile(event.target.files?.[0] ?? null)} required /><span>{file?.name || "Choose image"}</span></label><label>Heading <small>{title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="A short, clear heading" required /></label><label>Description <small>{description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="What is this image?" required /></label><button className="developer-primary" disabled={busy === "add"}>{busy === "add" ? "Publishing…" : "Publish image"}<span>↗</span></button></form>
             <div className="developer-list">
@@ -138,6 +139,7 @@ export default function DeveloperDashboard() {
           </div>
         )}
       </section>
+      <UniversalFooter />
     </main>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
 
 const faqs = [
   { q: "Who is Ada Wong?", a: "Ada Wong is an elite covert operative whose true loyalties are deliberately difficult to read. Precise, resourceful, and always one step ahead, she moves through the shadows of the Resident Evil story on her own terms." },
@@ -42,8 +43,6 @@ const capabilities = [
 
 export default function AdaArchive() {
   const [faq, setFaq] = useState(0);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [detailView, setDetailView] = useState<DetailView | null>(null);
 
@@ -87,7 +86,6 @@ export default function AdaArchive() {
 
     const onScroll = () => {
       const current = window.scrollY;
-      setScrolled(current > 24);
       const max = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
       root.style.setProperty("--scroll-progress", `${current / max}`);
     };
@@ -123,17 +121,7 @@ export default function AdaArchive() {
       <div className="scroll-progress" aria-hidden="true" />
       <div className="ambient-grid" aria-hidden="true" />
 
-      <header className={`nav-shell intro-target ${scrolled ? "nav-scrolled" : ""}`}>
-        <a className="brand-mark brand-image" href="/" aria-label="The Secretary legacy home"><img src="/assets/brand/secretary-mark.png" alt="" /></a>
-        <nav className={menuOpen ? "nav-links open" : "nav-links"} aria-label="Primary navigation">
-          <a href="/" onClick={() => setMenuOpen(false)}>Legacy</a>
-          <a className="active" href="#top" onClick={() => setMenuOpen(false)}>Ada Wong</a>
-          <a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Official</a>
-          <a href="/missions/" onClick={() => setMenuOpen(false)}>Mission</a>
-        </nav>
-        <a className="nav-action" href="/forum/" aria-label="Open the forum"><span>+</span></a>
-        <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>Menu</button>
-      </header>
+      <UniversalHeader active="ada" intro />
 
       <section className="hero" id="top">
         <div className="hero-image" />
@@ -296,14 +284,7 @@ export default function AdaArchive() {
         </div>
       </section>
 
-      <footer data-reveal>
-        <div className="footer-grid">
-          <div className="footer-brand"><div><span className="brand-mark brand-image"><img src="/assets/brand/secretary-mark.png" alt="" /></span><h3>The Secretary<small>ADA WONG ARCHIVE</small></h3></div><p>A cinematic archive of iconic characters, hidden histories, and the stories that refuse to fade.</p></div>
-          <div><p className="eyebrow">EXPLORE</p><a href="/">Legacy</a><a href="#top">Ada Wong</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a><a href="/missions/">Mission</a></div>
-          <div><p className="eyebrow">COMMUNITY</p><p>Continue the conversation, trade theories, and explore every classified thread.</p><a className="footer-cta shimmer-button" href="/forum/"><span>+</span> Open forum</a></div>
-        </div>
-        <div className="legal"><span>&copy; 2026 The Secretary.</span><span>Unofficial. Resident Evil and its characters belong to Capcom. (Fan made)</span><span>Made for the woman in red.</span></div>
-      </footer>
+      <UniversalFooter />
 
       {detailView && (
         <div className="detail-modal" role="dialog" aria-modal="true" aria-labelledby="detail-title" onMouseDown={() => setDetailView(null)}>

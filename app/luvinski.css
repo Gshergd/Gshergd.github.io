@@ -41,7 +41,7 @@
 .luv-stat-panel { background: linear-gradient(110deg,rgba(15,21,40,.93),rgba(9,10,14,.82),rgba(11,32,43,.72)); }
 
 .luv-manifesto { min-height: 680px; position: relative; display: grid; place-items: center; overflow: hidden; border-block: 1px solid rgba(255,255,255,.07); background: #050609; }
-.luv-manifesto-image { position: absolute; inset: 0; background-image: linear-gradient(0deg,#07080a 0%,rgba(5,6,9,.18) 46%,#07080a 100%),linear-gradient(90deg,rgba(5,6,9,.9),rgba(5,6,9,.34),rgba(5,6,9,.75)),url('/assets/portfolio/timeline-2026.webp'); background-size: cover; background-position: center; filter: saturate(.72); }
+.luv-manifesto-image { position: absolute; inset: 0; background-image: linear-gradient(0deg,#07080a 0%,rgba(5,6,9,.18) 46%,#07080a 100%),linear-gradient(90deg,rgba(5,6,9,.9),rgba(5,6,9,.34),rgba(5,6,9,.75)),url('/assets/portfolio/manifesto.webp'); background-size: cover; background-position: center; filter: saturate(.72); }
 .luv-manifesto-copy { width: min(950px,calc(100% - 48px)); position: relative; z-index: 2; padding: 100px 0; text-align: center; }
 .luv-manifesto-copy h2 { margin: 0; font-size: clamp(52px,7vw,90px); line-height: .94; letter-spacing: -.06em; }
 .luv-manifesto-copy > p:not(.eyebrow) { width: min(720px,100%); margin: 28px auto; color: #bab7ba; font-size: 17px; line-height: 1.7; }

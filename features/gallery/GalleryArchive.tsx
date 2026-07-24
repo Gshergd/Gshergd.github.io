@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
 import { useGalleryItems } from "./galleryClient";
 import type { GalleryItem } from "./galleryData";
 
@@ -13,11 +14,17 @@ export default function GalleryArchive() {
     if (!selected && !fullscreen) return;
     const previous = document.body.style.overflow;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") { setSelected(null); setFullscreen(null); }
+      if (event.key === "Escape") {
+        setSelected(null);
+        setFullscreen(null);
+      }
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", onKey);
-    return () => { document.body.style.overflow = previous; window.removeEventListener("keydown", onKey); };
+    return () => {
+      document.body.style.overflow = previous;
+      window.removeEventListener("keydown", onKey);
+    };
   }, [selected, fullscreen]);
 
   const openFullscreen = (item: GalleryItem) => {
@@ -36,11 +43,7 @@ export default function GalleryArchive() {
 
   return (
     <main className="gallery-site">
-      <header className="gallery-nav">
-        <a className="gallery-brand" href="/"><img src="/assets/brand/secretary-mark.png" alt="" /><span>Luvinski<small>PORTFOLIO LIBRARY</small></span></a>
-        <nav aria-label="Gallery navigation"><a href="/">Legacy</a><a className="active" href="/gallery/">Gallery</a><a href="/ada-wong/">Ada Wong</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a></nav>
-        <a className="gallery-owner-link" href="/developer/" aria-label="Gallery owner access">Owner</a>
-      </header>
+      <UniversalHeader />
 
       <section className="gallery-hero">
         <div className="gallery-hero-image" />
@@ -54,25 +57,30 @@ export default function GalleryArchive() {
           {items.map((item, index) => (
             <button type="button" key={item.id} className={`gallery-card gallery-shape-${(index % 9) + 1}`} onClick={() => setSelected(item)} aria-haspopup="dialog">
               <img src={item.image_url} alt={item.title} loading={index < 6 ? "eager" : "lazy"} decoding="async" />
-              <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{item.title}</strong><em>Open image ↗</em></span>
+              <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{item.title}</strong><em>Open image &nearr;</em></span>
             </button>
           ))}
         </div>
       </section>
 
-      <footer className="gallery-footer"><div><img src="/assets/brand/secretary-mark.png" alt="" /><span><b>Luvinski</b><small>A living visual collection.</small></span></div><nav><a href="/">Legacy</a><a href="/developer/">Owner access</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">The Secretary</a></nav><p>© 2026 The Secretary. Built by Gshergd Luvinski.</p></footer>
+      <UniversalFooter />
 
       {selected && (
-        <div className="gallery-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-detail-title" onMouseDown={() => setSelected(null)}>
-          <article onMouseDown={(event) => event.stopPropagation()}>
-            <button className="gallery-modal-close" type="button" onClick={() => setSelected(null)} aria-label="Close image details">×</button>
-            <div className="gallery-modal-image"><img src={selected.image_url} alt={selected.title} /></div>
-            <div className="gallery-modal-copy"><p className="eyebrow">GALLERY IMAGE</p><h2 id="gallery-detail-title">{selected.title}</h2><p>{selected.description}</p><button type="button" onClick={() => openFullscreen(selected)}>Fullscreen <span>⛶</span></button></div>
+        <div className="detail-modal gallery-detail-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-detail-title" onMouseDown={() => setSelected(null)}>
+          <article className="detail-modal-panel gallery-detail-panel" onMouseDown={(event) => event.stopPropagation()}>
+            <button className="detail-close" type="button" onClick={() => setSelected(null)} aria-label="Close image details">Close</button>
+            <div className="detail-media gallery-detail-media"><img src={selected.image_url} alt={selected.title} /></div>
+            <div className="detail-copy gallery-detail-copy">
+              <p className="eyebrow">GALLERY IMAGE</p>
+              <h2 id="gallery-detail-title">{selected.title}</h2>
+              <p>{selected.description}</p>
+              <button type="button" onClick={() => openFullscreen(selected)}>Fullscreen <span>&#x26F6;</span></button>
+            </div>
           </article>
         </div>
       )}
 
-      {fullscreen && <div className="gallery-fullscreen"><img src={fullscreen.image_url} alt={fullscreen.title} /><div><strong>{fullscreen.title}</strong><span>{fullscreen.description}</span></div><button type="button" onClick={closeFullscreen} aria-label="Close fullscreen image">×</button></div>}
+      {fullscreen && <div className="gallery-fullscreen"><img src={fullscreen.image_url} alt={fullscreen.title} /><div><strong>{fullscreen.title}</strong><span>{fullscreen.description}</span></div><button type="button" onClick={closeFullscreen} aria-label="Close fullscreen image">&times;</button></div>}
     </main>
   );
 }

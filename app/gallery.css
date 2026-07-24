@@ -58,6 +58,16 @@
 .gallery-fullscreen > div span { color: #aaa7aa; font-size: 12px; }
 .gallery-fullscreen > button { width: 48px; height: 48px; position: absolute; right: 22px; top: 20px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.28); border-radius: 50%; background: rgba(5,6,8,.7); color: #fff; font-size: 25px; cursor: pointer; }
 
+/* Gallery details share the site's fitted, animated cinematic modal. */
+.gallery-detail-panel { grid-template-columns: minmax(0,1.45fr) minmax(300px,.72fr); }
+.gallery-detail-media { min-width: 0; display: grid; place-items: center; overflow: hidden; background: radial-gradient(circle at 50% 45%,#17191e 0,#06070a 68%); }
+.gallery-detail-media img { width: 100%; height: 100%; max-height: min(780px,calc(100svh - 56px)); object-fit: contain; }
+.gallery-detail-copy > button { margin-top: auto; }
+.developer-session-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 14px; }
+.developer-session-actions > span { color: #8296df; font-size: 10px; font-weight: 850; letter-spacing: .18em; }
+.developer-session-actions > button { min-height: 38px; padding: 0 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 9px; background: #101116; color: #f5f2ef; font-weight: 750; cursor: pointer; }
+.developer-session-actions > button:hover { border-color: rgba(229,46,75,.75); background: #171217; }
+
 .developer-hero { min-height: 600px; position: relative; display: flex; align-items: center; overflow: hidden; background-image: linear-gradient(90deg,rgba(5,6,9,.97),rgba(5,6,9,.68) 50%,rgba(5,6,9,.24)),linear-gradient(0deg,#07080a,transparent 50%),url('/assets/portfolio/hero-legacy.webp'); background-size: cover; background-position: center; }
 .developer-hero > div { width: min(1120px,calc(100% - 48px)); margin: auto; padding-top: 70px; }
 .developer-hero h1 { margin: 0; font-size: clamp(72px,10vw,132px); line-height: .76; letter-spacing: -.07em; }
@@ -142,6 +152,10 @@
   .gallery-modal-image { min-height: 300px; }
   .gallery-modal-copy { padding: 28px 22px 22px; }
   .gallery-fullscreen > div { left: 10px; right: 10px; bottom: 10px; }
+  .gallery-detail-panel { grid-template-columns: 1fr; }
+  .gallery-detail-media { min-height: 42svh; }
+  .gallery-detail-copy { padding: 34px 26px 28px; }
+  .developer-session-actions { justify-content: flex-start; }
   .developer-nav nav a:nth-child(1) { display: none; }
   .developer-hero { min-height: 570px; background-position: 64% center; }
   .developer-add-card { grid-template-columns: 1fr; }
