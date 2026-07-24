@@ -11,7 +11,7 @@ const faqs = [
 ];
 
 const dossiers = [
-  { icon: "A", title: "Operative Profile", copy: "Trace Ada's aliases, shifting objectives, and the details hidden between missions.", image: "/assets/characters/ada-wong/ada-01.png", kicker: "CLASSIFIED IDENTITY", detail: "Every file carries a different employer, objective, or alias. The constant is Ada herself: precise, composed, and impossible to fully place on anyone else's side." },
+  { icon: "A", title: "Operative Profile", copy: "Trace Ada's aliases, shifting objectives, and the details hidden between missions.", image: "/assets/characters/ada-wong/operative-profile.webp", kicker: "CLASSIFIED IDENTITY", detail: "Every file carries a different employer, objective, or alias. The constant is Ada herself: precise, composed, and impossible to fully place on anyone else's side." },
   { icon: "M", title: "Mission Archive", copy: "Revisit Raccoon City, the European village, and every operation where Ada changed the outcome.", image: "/assets/characters/ada-wong/ada-02.png", kicker: "OPERATIONAL HISTORY", detail: "From the fall of Raccoon City to the search for the amber, Ada repeatedly enters impossible operations, secures what matters, and leaves before the truth catches up." },
   { icon: "S", title: "Separate Ways", copy: "Follow the mission running in parallel with Leon's search and uncover the story he never saw.", image: "/assets/characters/ada-wong/ada-03.png", kicker: "PARALLEL MISSION", detail: "Separate Ways reveals the unseen mission behind Leon's journey: Ada's pursuit of the amber, her uneasy alliance with Luis, and the choices that quietly change the ending." },
 ];
@@ -32,12 +32,12 @@ const intelFrames = [
 type DetailView = { image: string; title: string; kicker: string; description: string };
 
 const capabilities = [
-  ["Hookshot Mobility", "Ada's grappling device turns vertical spaces into escape routes and unreachable positions into tactical ground."],
-  ["Covert Intelligence", "She builds a cover that survives scrutiny and extracts the one detail her employer actually needs."],
-  ["Precision Combat", "Measured marksmanship and controlled movement let Ada finish encounters before they become a liability."],
-  ["Situational Control", "Distractions, feints, and environmental awareness allow her to reshape a dangerous scene."],
-  ["Independent Judgment", "Ada accepts a brief, not a leash. When the mission conflicts with her code, she makes the final call."],
-  ["Unshakable Composure", "Whether surrounded, betrayed, or seconds from disaster, she keeps her next move unreadable."],
+  { title: "Hookshot Mobility", copy: "Ada's grappling device turns vertical spaces into escape routes and unreachable positions into tactical ground.", image: "/assets/characters/ada-wong/advantage-01.webp" },
+  { title: "Covert Intelligence", copy: "She builds a cover that survives scrutiny and extracts the one detail her employer actually needs.", image: "/assets/characters/ada-wong/advantage-02.webp" },
+  { title: "Precision Combat", copy: "Measured marksmanship and controlled movement let Ada finish encounters before they become a liability.", image: "/assets/characters/ada-wong/advantage-03.webp" },
+  { title: "Situational Control", copy: "Distractions, feints, and environmental awareness allow her to reshape a dangerous scene.", image: "/assets/characters/ada-wong/advantage-04.webp" },
+  { title: "Independent Judgment", copy: "Ada accepts a brief, not a leash. When the mission conflicts with her code, she makes the final call.", image: "/assets/characters/ada-wong/advantage-05.webp" },
+  { title: "Unshakable Composure", copy: "Whether surrounded, betrayed, or seconds from disaster, she keeps her next move unreadable.", image: "/assets/characters/ada-wong/advantage-06.webp" },
 ];
 
 export default function AdaArchive() {
@@ -247,9 +247,9 @@ export default function AdaArchive() {
         </div>
         <h2 className="subhead" data-reveal>Operational advantages</h2>
         <div className="card-grid capability-grid">
-          {capabilities.map(([title, copy], index) => (
-            <button type="button" className="capability-card" data-reveal key={title} style={{ "--delay": `${(index % 3) * 80}ms` } as CSSProperties} onClick={() => setDetailView({ image: intelFrames[index % intelFrames.length].image, title, kicker: "OPERATIONAL ADVANTAGE", description: copy })} aria-haspopup="dialog">
-              <span>0{index + 1}</span><h3>{title}</h3><p>{copy}</p>
+          {capabilities.map((item, index) => (
+            <button type="button" className="capability-card" data-reveal key={item.title} style={{ "--capability-image": `url(${item.image})`, "--delay": `${(index % 3) * 80}ms` } as CSSProperties} onClick={() => setDetailView({ image: item.image, title: item.title, kicker: "OPERATIONAL ADVANTAGE", description: item.copy })} aria-haspopup="dialog">
+              <span>0{index + 1}</span><h3>{item.title}</h3><p>{item.copy}</p>
             </button>
           ))}
         </div>
