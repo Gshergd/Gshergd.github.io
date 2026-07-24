@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./luvinski.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://example.github.io";
 
