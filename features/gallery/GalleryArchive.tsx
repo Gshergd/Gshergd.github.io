@@ -66,11 +66,11 @@ export default function GalleryArchive() {
       <UniversalFooter />
 
       {selected && (
-        <div className="detail-modal gallery-detail-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-detail-title" onMouseDown={() => setSelected(null)}>
-          <article className="detail-modal-panel gallery-detail-panel" onMouseDown={(event) => event.stopPropagation()}>
+        <div className="detail-modal" role="dialog" aria-modal="true" aria-labelledby="gallery-detail-title" onMouseDown={() => setSelected(null)}>
+          <article className="detail-modal-panel" onMouseDown={(event) => event.stopPropagation()}>
             <button className="detail-close" type="button" onClick={() => setSelected(null)} aria-label="Close image details">Close</button>
-            <div className="detail-media gallery-detail-media"><img src={selected.image_url} alt={selected.title} /></div>
-            <div className="detail-copy gallery-detail-copy">
+            <div className="detail-media"><img src={selected.image_url} alt={selected.title} /></div>
+            <div className="detail-copy">
               <p className="eyebrow">GALLERY IMAGE</p>
               <h2 id="gallery-detail-title">{selected.title}</h2>
               <p>{selected.description}</p>

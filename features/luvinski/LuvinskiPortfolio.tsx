@@ -131,6 +131,7 @@ const faqs = [
 export default function LuvinskiPortfolio() {
   const { items: galleryItems } = useGalleryItems();
   const homeGallery = galleryItems.slice(0, 10);
+  const homeGallerySignature = homeGallery.map((item) => item.id).join("|");
   const [loaded, setLoaded] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -168,6 +169,26 @@ export default function LuvinskiPortfolio() {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
+
+  useEffect(() => {
+    const cards = document.querySelectorAll<HTMLElement>(".luv-field-grid [data-reveal]:not(.is-visible)");
+    if (!cards.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -3% 0px" });
+
+    cards.forEach((card, index) => {
+      card.style.setProperty("--delay", `${(index % 4) * 70}ms`);
+      observer.observe(card);
+    });
+
+    return () => observer.disconnect();
+  }, [homeGallerySignature]);
 
   useEffect(() => {
     if (!detailView && !fullscreenView) return;
