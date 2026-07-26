@@ -174,7 +174,7 @@ export async function signOutOwner() {
   saveSession(null);
 }
 
-async function ownerFetch(path: string, init: RequestInit = {}) {
+export async function ownerFetch(path: string, init: RequestInit = {}) {
   const session = await getOwnerSession();
   if (!session) throw new Error("Your owner session has expired. Sign in again.");
   const response = await fetch(`${supabaseUrl}${path}`, {
@@ -184,6 +184,8 @@ async function ownerFetch(path: string, init: RequestInit = {}) {
   if (!response.ok) throw new Error(await readError(response));
   return response;
 }
+
+export function getSupabasePublicUrl() { return supabaseUrl; }
 
 export async function uploadGalleryImage(file: File) {
   const extension = file.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg";

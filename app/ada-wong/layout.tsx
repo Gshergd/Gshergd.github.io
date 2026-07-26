@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Ada Wong — The Woman in Red",
   description: "Enter the classified world of Resident Evil's most elusive covert operative.",
-  alternates: { canonical: "/ada-wong/" },
+  alternates: { canonical: "/missions/ada-wong/" },
+  robots: { index: false, follow: true },
   openGraph: {
     title: "Ada Wong — The Woman in Red",
     description: "Enter the classified world of Resident Evil's most elusive covert operative.",
-    url: "/ada-wong/",
+    url: "/missions/ada-wong/",
     images: [{
       url: "/assets/social/ada-wong-og.png",
       width: 1680,

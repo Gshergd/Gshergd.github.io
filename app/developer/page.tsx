@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import DeveloperDashboard from "@/features/gallery/DeveloperDashboard";
 
 export const metadata: Metadata = {
-  title: "Gallery Developer — Luvinski",
-  description: "Private gallery management for the Luvinski portfolio.",
+  title: "Archive Developer — Luvinski",
+  description: "Private gallery management and visual mission-page building for the Luvinski portfolio.",
   robots: { index: false, follow: false },
 };
 

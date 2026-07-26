@@ -115,7 +115,7 @@ const missions = [
     title: "Ada Wong",
     kicker: "RESIDENT EVIL ARCHIVE",
     image: "/assets/characters/ada-wong/hero.webp",
-    href: "/ada-wong/",
+    href: "/missions/ada-wong/",
     copy: "A cinematic dossier devoted to the woman in red: operative profile, mission footage, field capabilities, connections, and unanswered questions.",
   },
 ].slice(0, 5);
@@ -238,9 +238,9 @@ export default function LuvinskiPortfolio() {
         <a className="brand-mark brand-image" href="#top" aria-label="Luvinski portfolio home"><img src="/assets/brand/secretary-mark.png" alt="" /></a>
         <nav className={menuOpen ? "nav-links open" : "nav-links"} aria-label="Primary navigation">
           <a className="active" href="#top" onClick={() => setMenuOpen(false)}>Legacy</a>
-          <a href="/ada-wong/" onClick={() => setMenuOpen(false)}>Ada Wong</a>
+          <a href="/missions/" onClick={() => setMenuOpen(false)}>Missions</a>
+          <a href="/gallery/" onClick={() => setMenuOpen(false)}>Gallery</a>
           <a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Official</a>
-          <a href="#missions" onClick={() => setMenuOpen(false)}>Mission</a>
         </nav>
         <a className="nav-action" href="/forum/" aria-label="Open the forum"><span>+</span></a>
         <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>Menu</button>
@@ -373,7 +373,7 @@ export default function LuvinskiPortfolio() {
       <footer data-reveal>
         <div className="footer-grid">
           <div className="footer-brand"><div><span className="brand-mark brand-image"><img src="/assets/brand/secretary-mark.png" alt="" /></span><h3>Luvinski<small>PORTFOLIO LIBRARY</small></h3></div><p>An independent archive of systems, communities, visual experiments, game ambitions, and the work worth carrying forward.</p></div>
-          <div><p className="eyebrow">EXPLORE</p><a href="#top">Legacy</a><a href="/gallery/">Gallery</a><a href="/ada-wong/">Ada Wong</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a><a href="#missions">Mission</a></div>
+          <div><p className="eyebrow">EXPLORE</p><a href="#top">Legacy</a><a href="/missions/">Missions</a><a href="/gallery/">Gallery</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a></div>
           <div><p className="eyebrow">CONTACT</p><p>The Secretary is the official public presence and developer contact hub.</p><a className="footer-cta" href="https://thesecretary.xyz/" target="_blank" rel="noreferrer"><span>↗</span> Open The Secretary</a></div>
         </div>
         <div className="legal"><span>© 2026 The Secretary.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>

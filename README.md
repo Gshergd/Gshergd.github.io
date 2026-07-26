@@ -13,7 +13,8 @@ A static, multi-route Next.js archive designed for GitHub Pages.
 The archive will appear at:
 
 - `https://YOUR-USERNAME.github.io/`
-- `https://YOUR-USERNAME.github.io/ada-wong/`
+- `https://YOUR-USERNAME.github.io/missions/`
+- `https://YOUR-USERNAME.github.io/missions/ada-wong/`
 - `https://YOUR-USERNAME.github.io/gallery/`
 - `https://YOUR-USERNAME.github.io/forum/`
 - `https://YOUR-USERNAME.github.io/developer/`
@@ -63,24 +64,45 @@ add `http://localhost:3000/developer/` to Supabase's redirect allowlist, then ru
 Without these values the original gallery is still visible, while `/developer/` shows setup
 instructions instead of pretending that browser-only edits are persistent.
 
-## Add future character archives
+## Connect the Mission Builder
 
-Use one folder per public route and one feature folder per character:
+`/developer/` also contains an owner-only visual Mission Builder. Pages are assembled from
+locked cinematic widgets, so editors can change content and order without changing the site's
+theme, header, footer, motion, or responsive behavior.
 
-```text
-app/
-  ada-wong/page.tsx
-  leon-kennedy/page.tsx
-  james-bond/page.tsx
-features/
-  ada-wong/
-  leon-kennedy/
-  james-bond/
-public/assets/characters/
-  ada-wong/
-  leon-kennedy/
-  james-bond/
-```
+1. Complete the gallery Supabase setup above.
+2. Run [`supabase/mission-builder.sql`](supabase/mission-builder.sql) in the same Supabase SQL
+   Editor. This adds draft/published mission records and a dedicated mission image bucket.
+3. Redeploy the website. Ada Wong is included as the built-in first mission and can be imported
+   into Supabase simply by opening it in the builder and saving or publishing it.
 
-Each `app/<route>/page.tsx` should export its character feature. Keep reusable navigation,
-buttons, modal components, and legal text in `components/site/` as those shared pieces grow.
+### Automatic deployment after publishing
+
+GitHub Pages is static, so a newly published clean URL such as `/missions/new-file/` must be added
+during a fresh Pages build. The builder can request that build securely:
+
+1. Create a fine-grained GitHub token that can run Actions for the `Portfolio` repository.
+2. In Supabase CLI, link the project and set the Edge Function secrets:
+
+   ```bash
+   supabase secrets set GITHUB_ACTIONS_TOKEN=YOUR_TOKEN
+   supabase secrets set GITHUB_REPOSITORY=Gshergd/Portfolio
+   ```
+
+3. Deploy the included function:
+
+   ```bash
+   supabase functions deploy publish-mission
+   ```
+
+The function validates the existing owner session before requesting the already configured Pages
+workflow. The GitHub token remains inside Supabase and is never shipped to the browser. If this
+optional function is not deployed, mission drafts and records still work; pushing any commit to
+`main` performs the required rebuild.
+
+## Mission content model
+
+Mission pages are stored as structured JSON blocks in Supabase. Supported widgets include the
+cinematic hero, marquee, dossier cards, statistics, image feature, full-width banner, footage
+gallery, capabilities, connections, and FAQ intelligence. Public pages render those records using
+the fixed components in `features/missions/`; raw HTML and custom CSS are never accepted.

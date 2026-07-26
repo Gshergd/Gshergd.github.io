@@ -2,6 +2,7 @@
 
 import { useEffect, useState, type FormEvent } from "react";
 import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
+import MissionManager from "@/features/missions/MissionManager";
 import {
   OWNER_EMAIL,
   consumeOwnerMagicLink,
@@ -25,6 +26,7 @@ import {
 type Draft = { title: string; description: string };
 
 export default function DeveloperDashboard() {
+  const [workspace, setWorkspace] = useState<"gallery" | "missions">("missions");
   const [checking, setChecking] = useState(true);
   const [signedIn, setSignedIn] = useState(false);
   const [linkSent, setLinkSent] = useState(false);
@@ -111,7 +113,7 @@ export default function DeveloperDashboard() {
     <main className="developer-site">
       <UniversalHeader />
 
-      <section className="developer-hero"><div><p className="eyebrow">PRIVATE CONTROL ROOM</p><h1>Gallery<br />Developer.</h1><p>Publish, revise, and remove images from the public collection. Access is locked to one verified email address.</p><span><i /> MAGIC LINK AUTHENTICATION</span></div></section>
+      <section className="developer-hero"><div><p className="eyebrow">PRIVATE CONTROL ROOM</p><h1>Archive<br />Developer.</h1><p>Manage the gallery and build complete mission pages from locked cinematic widgets. Access remains restricted to one verified email address.</p><span><i /> MAGIC LINK AUTHENTICATION</span></div></section>
 
       <section className="developer-content">
         {checking ? <div className="developer-loading">Checking owner session…</div> : !signedIn ? (
@@ -127,6 +129,8 @@ export default function DeveloperDashboard() {
           </div>
         ) : (
           <div className="developer-dashboard">
+            <div className="developer-workspace-tabs" role="tablist" aria-label="Developer workspace"><button type="button" role="tab" aria-selected={workspace === "missions"} className={workspace === "missions" ? "active" : ""} onClick={() => setWorkspace("missions")}><span>01</span>Mission Builder</button><button type="button" role="tab" aria-selected={workspace === "gallery"} className={workspace === "gallery" ? "active" : ""} onClick={() => setWorkspace("gallery")}><span>02</span>Gallery Manager</button></div>
+            {workspace === "missions" ? <MissionManager /> : <>
             <div className="developer-dashboard-head"><div><p className="eyebrow">OWNER SESSION ACTIVE</p><h2>Manage the collection.</h2></div><div className="developer-session-actions"><span>{items.length} PUBLISHED IMAGES</span><button type="button" onClick={logOut}>Sign out</button></div></div>
             {message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}
             <form className="developer-add-card" onSubmit={addItem}><div><p className="eyebrow">ADD IMAGE</p><h3>Publish a new gallery entry.</h3><p>JPG, PNG, or WebP. Maximum file size: 10 MB.</p></div><label className="developer-file">Image<input id="gallery-file" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => setFile(event.target.files?.[0] ?? null)} required /><span>{file?.name || "Choose image"}</span></label><label>Heading <small>{title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="A short, clear heading" required /></label><label>Description <small>{description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="What is this image?" required /></label><button className="developer-primary" disabled={busy === "add"}>{busy === "add" ? "Publishing…" : "Publish image"}<span>↗</span></button></form>
@@ -136,6 +140,7 @@ export default function DeveloperDashboard() {
                 return <article key={item.id}><div className="developer-item-image"><img src={item.image_url} alt={item.title} /><span>{String(index + 1).padStart(2, "0")}</span></div><div className="developer-item-fields"><label>Heading <small>{draft.title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={draft.title} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, title: event.target.value } }))} /></label><label>Description <small>{draft.description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={draft.description} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, description: event.target.value } }))} /></label><div><button type="button" className="developer-save" onClick={() => void saveItem(item)} disabled={busy === `save-${item.id}`}>{busy === `save-${item.id}` ? "Saving…" : "Save changes"}</button><button type="button" className="developer-delete" onClick={() => void removeItem(item)} disabled={busy === `delete-${item.id}`}>{busy === `delete-${item.id}` ? "Removing…" : "Remove image"}</button></div></div></article>;
               })}
             </div>
+            </>}
           </div>
         )}
       </section>

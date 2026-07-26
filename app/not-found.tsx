@@ -16,7 +16,7 @@ export default function NotFound() {
         <p>The requested file may still be classified, may have moved, or may belong to an archive that has not yet been opened.</p>
         <div className="not-found-actions">
           <Link className="button primary" href="/">Return to Legacy <span>&rarr;</span></Link>
-          <Link className="button secondary" href="/ada-wong/">Open Ada Wong</Link>
+          <Link className="button secondary" href="/missions/">Open Missions</Link>
         </div>
       </section>
 
