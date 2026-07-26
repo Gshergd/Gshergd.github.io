@@ -5,6 +5,21 @@ import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShe
 import { useGalleryItems } from "./galleryClient";
 import type { GalleryItem } from "./galleryData";
 
+const galleryLayoutCycle = [
+  "gallery-shape-feature-seven", "gallery-shape-stack-five", "gallery-shape-stack-five",
+  "gallery-shape-third", "gallery-shape-wide-eight",
+  "gallery-shape-quarter", "gallery-shape-five", "gallery-shape-third",
+  "gallery-shape-half", "gallery-shape-half",
+  "gallery-shape-feature-five", "gallery-shape-wide-seven", "gallery-shape-wide-seven",
+  "gallery-shape-wide-eight", "gallery-shape-third",
+  "gallery-shape-five", "gallery-shape-quarter", "gallery-shape-third",
+  "gallery-shape-wide-seven", "gallery-shape-five",
+  "gallery-shape-feature-eight", "gallery-shape-third", "gallery-shape-third",
+  "gallery-shape-third", "gallery-shape-third", "gallery-shape-third",
+  "gallery-shape-quarter", "gallery-shape-half", "gallery-shape-quarter",
+  "gallery-shape-five", "gallery-shape-wide-seven",
+] as const;
+
 export default function GalleryArchive() {
   const { items, loading, error } = useGalleryItems();
   const [selected, setSelected] = useState<GalleryItem | null>(null);
@@ -47,17 +62,29 @@ export default function GalleryArchive() {
 
       <section className="gallery-hero">
         <div className="gallery-hero-image" />
-        <div className="gallery-hero-copy"><p className="eyebrow">THE COMPLETE COLLECTION</p><h1>Image<br />Gallery.</h1><p>Screenshots, experiments, games, characters, roads, and moments collected because they were worth keeping.</p><span>{loading ? "SYNCING" : `${items.length} IMAGES`}<i />PUBLIC ARCHIVE</span></div>
+        <div className="gallery-hero-grid" aria-hidden="true" />
+        <div className="gallery-hero-copy">
+          <div className="status-pill"><i /> VISUAL ARCHIVE <b>&bull;</b> ONLINE</div>
+          <p className="eyebrow">THE COMPLETE COLLECTION</p>
+          <h1>Image<br />Gallery.</h1>
+          <p>Screenshots, experiments, games, characters, roads, and moments collected because they were worth keeping.</p>
+          <div className="gallery-hero-stats">
+            <div><strong>{loading ? "—" : items.length}</strong><span>IMAGE FILES</span></div>
+            <div><strong>FULL</strong><span>SCREEN VIEWER</span></div>
+            <div><strong>LIVE</strong><span>OWNER CURATED</span></div>
+          </div>
+        </div>
+        <a className="scroll-cue" href="#gallery-archive"><span>EXPLORE</span><b><i /></b></a>
       </section>
 
-      <section className="gallery-content">
+      <section className="gallery-content" id="gallery-archive">
         <div className="gallery-heading"><div><p className="eyebrow">ALL IMAGES</p><h2>No lore. Just the gallery.</h2></div><p>Open any image for its heading and note, then take it fullscreen for the details that disappear at card size.</p></div>
         {error && <p className="gallery-sync-note">Live additions are temporarily unavailable; the original collection is still here.</p>}
         <div className="gallery-archive-grid">
           {items.map((item, index) => (
-            <button type="button" key={item.id} className={`gallery-card gallery-shape-${(index % 9) + 1}`} onClick={() => setSelected(item)} aria-haspopup="dialog">
+            <button type="button" key={item.id} className={`gallery-card ${galleryLayoutCycle[index % galleryLayoutCycle.length]}`} onClick={() => setSelected(item)} aria-haspopup="dialog">
               <img src={item.image_url} alt={item.title} loading={index < 6 ? "eager" : "lazy"} decoding="async" />
-              <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{item.title}</strong><em>Open image &nearr;</em></span>
+              <span><small>{String(index + 1).padStart(2, "0")}</small><strong>{item.title}</strong></span>
             </button>
           ))}
         </div>
