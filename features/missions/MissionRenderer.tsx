@@ -63,7 +63,11 @@ export default function MissionRenderer({ mission, preview = false }: { mission:
     <section className="hero mission-hero" id="top"><div className="hero-image" style={backdrop(mission.hero.image || mission.cover_url, "hero")} /><div className="hero-grid" /><div className="hero-copy"><div className="status-pill intro-target intro-1"><i />{mission.hero.status}</div><p className="eyebrow intro-target intro-2">{mission.hero.eyebrow}</p><h1 className="intro-target intro-3">{mission.hero.title}</h1><p className="hero-lede intro-target intro-4">{mission.hero.lede}</p><MissionButtons buttons={mission.hero.buttons} />{mission.hero.stats.length > 0 && <div className="hero-stats intro-target intro-6">{mission.hero.stats.map((stat, index) => <div key={`${stat.label}-${index}`}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>}</div>{!preview && <a className="scroll-cue intro-target intro-6" href={`#${mission.blocks[0]?.id || "top"}`}><span>SCROLL</span><b><i /></b></a>}</section>
 
     {mission.blocks.map((block) => {
-      if (block.type === "marquee") { const text = block.items.join("  •  "); return <div className="marquee" aria-hidden="true" id={block.id} key={block.id}><div><span>{text}  •  </span><span>{text}  •  </span></div></div>; }
+      if (block.type === "marquee") {
+        const items = block.items.filter(Boolean).length ? block.items.filter(Boolean) : ["Mission archive"];
+        const group = (copy: string) => <span className="mission-marquee-group" key={copy}>{items.map((item, index) => <span className="mission-marquee-item" key={`${copy}-${item}-${index}`}>{item}<i aria-hidden="true">&#8226;</i></span>)}</span>;
+        return <div className="marquee mission-marquee" aria-hidden="true" id={block.id} key={block.id}><div className="mission-marquee-track">{group("primary")}{group("duplicate")}</div></div>;
+      }
       if (block.type === "cards") return <CardsBlock block={block} open={open} key={block.id} />;
       if (block.type === "stats") return <section className="section stat-section" key={block.id} id={block.id}><div className="stat-panel" data-reveal>{block.items.map((stat, index) => <div key={`${stat.label}-${index}`}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div></section>;
       if (block.type === "feature") return <section className="section profile-section" id={block.id} key={block.id}><div className="feature-panel image-panel" data-reveal><div className="feature-image" style={backdrop(block.image, "feature")} /><div className="panel-copy"><p className="eyebrow">{block.eyebrow}</p><h2>{block.title}</h2><p>{block.body}</p><MissionButtons buttons={block.buttons} /></div></div></section>;
@@ -78,4 +82,3 @@ export default function MissionRenderer({ mission, preview = false }: { mission:
     {!preview && detail && <div className="detail-modal" role="dialog" aria-modal="true" aria-labelledby="mission-detail-title" onMouseDown={() => setDetail(null)}><div className="detail-modal-panel" onMouseDown={(event) => event.stopPropagation()}><button className="detail-close" type="button" onClick={() => setDetail(null)} aria-label="Close details">×</button><div className="detail-media"><img src={detail.image} alt={detail.title} /></div><div className="detail-copy"><p className="eyebrow">{detail.kicker}</p><h2 id="mission-detail-title">{detail.title}</h2><p>{detail.body}</p><button type="button" onClick={() => setDetail(null)}>Return to mission <span>→</span></button></div></div></div>}
   </main>;
 }
-

@@ -41,6 +41,11 @@ body::after {
 .nav-shell.intro-target { transform: translate(-50%,-24px); }
 .site-loaded .intro-target { opacity: 1; transform: translateY(0); }
 .site-loaded .nav-shell.intro-target { transform: translate(-50%,0); }
+.nav-universal-enter { animation: universal-nav-enter .78s cubic-bezier(.2,.75,.25,1) both; }
+@keyframes universal-nav-enter {
+  from { opacity: 0; transform: translate(-50%,-24px); }
+  to { opacity: 1; transform: translate(-50%,0); }
+}
 .intro-1 { transition-delay: .12s; }
 .intro-2 { transition-delay: .21s; }
 .intro-3 { transition-delay: .3s; }
@@ -55,7 +60,7 @@ body::after {
 .brand-mark.brand-image img { width: 100%; height: 100%; display: block; object-fit: cover; }
 .nav-links { display: flex; justify-content: center; gap: 34px; font-size: 13px; font-weight: 650; color: #858387; }
 .nav-links a { position: relative; transition: color .2s ease; }
-.nav-links a::after { content: ""; position: absolute; left: 20%; right: 20%; bottom: -10px; height: 1px; background: #df2844; transform: scaleX(0); transition: transform .25s ease; }
+.nav-links a::after { content: ""; position: absolute; left: 20%; right: 20%; bottom: -10px; height: 1px; background: linear-gradient(90deg,#5c78ef,#72dbff); transform: scaleX(0); transition: transform .25s ease; }
 .nav-links a:hover, .nav-links a.active { color: #fff; }
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 .nav-action { justify-self: end; width: 38px; height: 38px; border-radius: 50%; background: #f7f6f3; color: #090a0c; display: grid; place-items: center; transform: translate(var(--mag-x,0),var(--mag-y,0)); transition: transform .18s ease; }
@@ -341,4 +346,5 @@ footer { width: 100%; border-top: 1px solid rgba(255,255,255,.1); padding: 72px 
   *,*::before,*::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   [data-reveal],.intro-target { opacity: 1 !important; transform: none !important; }
   .nav-shell.intro-target { transform: translateX(-50%) !important; }
+  .nav-universal-enter { opacity: 1 !important; transform: translateX(-50%) !important; }
 }

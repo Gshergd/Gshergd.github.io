@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
-import { UniversalHeader } from "@/components/site/UniversalShell";
+import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
 import { forumSendAnimation, forumSignalAnimation } from "./forumAnimations";
 
 const FORMSUBMIT_URL = "https://formsubmit.co/dikshitaggarwal007@gmail.com";
@@ -76,6 +76,7 @@ export default function ForumRequest() {
           <div className="forum-visual-caption"><span>REQUEST INTAKE</span><strong>Some ideas begin with a quiet conversation.</strong></div>
         </div>
       </section>
+      <UniversalFooter />
     </main>
   );
 }

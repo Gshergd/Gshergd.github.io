@@ -215,6 +215,19 @@ export async function updateGalleryItem(id: string, input: Pick<GalleryItem, "ti
   });
 }
 
+export async function updateGalleryOrder(items: Array<Pick<GalleryItem, "id" | "sort_order">>) {
+  const session = await getOwnerSession();
+  if (!session) throw new Error("Your owner session has expired. Sign in again.");
+
+  const responses = await Promise.all(items.map((item) => fetch(`${supabaseUrl}/rest/v1/gallery_items?id=eq.${encodeURIComponent(item.id)}`, {
+    method: "PATCH",
+    headers: headers(session.access_token, { "Content-Type": "application/json", Prefer: "return=minimal" }),
+    body: JSON.stringify({ sort_order: item.sort_order }),
+  })));
+  const failedResponse = responses.find((response) => !response.ok);
+  if (failedResponse) throw new Error(await readError(failedResponse));
+}
+
 export async function deleteGalleryItem(item: GalleryItem) {
   if (item.storage_path) {
     await ownerFetch("/storage/v1/object/gallery", {

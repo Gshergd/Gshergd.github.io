@@ -120,10 +120,13 @@
 .developer-item-image span { position: absolute; left: 12px; top: 12px; padding: 7px 9px; border-radius: 999px; background: rgba(5,6,8,.8); color: #8ba2ff; font-size: 9px; font-weight: 850; }
 .developer-item-fields { display: grid; grid-template-columns: .8fr 1.2fr; gap: 14px; align-items: start; }
 .developer-item-fields label { margin: 5px 0 0; }
-.developer-item-fields > div { grid-column: 1/-1; display: flex; gap: 10px; }
+.developer-item-fields > div { grid-column: 1/-1; display: flex; gap: 10px; flex-wrap: wrap; }
 .developer-save,.developer-delete { min-height: 42px; padding: 0 16px; border-radius: 9px; font-weight: 760; cursor: pointer; }
 .developer-save { border: 0; background: #f3f1ef; color: #111; }
 .developer-delete { border: 1px solid rgba(255,104,118,.32); background: rgba(255,104,118,.06); color: #ff9aa4; }
+.developer-move { min-height: 42px; padding: 0 15px; border: 1px solid rgba(114,219,255,.28); border-radius: 9px; background: rgba(114,219,255,.07); color: #a9e8ff; font-weight: 760; cursor: pointer; transition: border-color .2s ease,background .2s ease,transform .2s ease; }
+.developer-move:hover:not(:disabled) { border-color: rgba(114,219,255,.62); background: rgba(114,219,255,.13); transform: translateY(-1px); }
+.developer-move:disabled { opacity: .3; cursor: not-allowed; }
 
 @media (max-width: 900px) {
   .gallery-nav nav { gap: 14px; }

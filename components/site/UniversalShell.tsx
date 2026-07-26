@@ -5,7 +5,7 @@ import Link from "next/link";
 
 type ActiveLink = "legacy" | "missions" | "ada";
 
-export function UniversalHeader({ active, intro = false }: { active?: ActiveLink; intro?: boolean }) {
+export function UniversalHeader({ active }: { active?: ActiveLink; intro?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -17,7 +17,7 @@ export function UniversalHeader({ active, intro = false }: { active?: ActiveLink
   }, []);
 
   const closeMenu = () => setMenuOpen(false);
-  const className = ["nav-shell", intro ? "intro-target" : "", scrolled ? "nav-scrolled" : ""].filter(Boolean).join(" ");
+  const className = ["nav-shell", "nav-universal-enter", scrolled ? "nav-scrolled" : ""].filter(Boolean).join(" ");
 
   return (
     <header className={className}>

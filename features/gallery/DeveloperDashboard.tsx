@@ -14,6 +14,7 @@ import {
   requestOwnerMagicLink,
   signOutOwner,
   updateGalleryItem,
+  updateGalleryOrder,
   uploadGalleryImage,
 } from "./galleryClient";
 import {
@@ -107,6 +108,26 @@ export default function DeveloperDashboard() {
     finally { setBusy(null); }
   };
 
+  const moveItem = async (index: number, direction: -1 | 1) => {
+    const targetIndex = index + direction;
+    if (targetIndex < 0 || targetIndex >= items.length || busy) return;
+
+    const movedItem = items[index];
+    const nextItems = [...items];
+    [nextItems[index], nextItems[targetIndex]] = [nextItems[targetIndex], nextItems[index]];
+    const orderedItems = nextItems.map((item, orderIndex) => ({ ...item, sort_order: (orderIndex + 1) * 10 }));
+
+    setBusy(`move-${movedItem.id}`); setError(null); setMessage(null); setItems(orderedItems);
+    try {
+      await updateGalleryOrder(orderedItems.map(({ id, sort_order }) => ({ id, sort_order })));
+      await loadItems();
+      setMessage(`Moved “${movedItem.title}” ${direction < 0 ? "up" : "down"}.`);
+    } catch (reason) {
+      await loadItems().catch(() => null);
+      setError(reason instanceof Error ? reason.message : "The gallery order could not be saved.");
+    } finally { setBusy(null); }
+  };
+
   const logOut = async () => { await signOutOwner(); setSignedIn(false); setItems([]); setMessage("Signed out safely."); };
 
   return (
@@ -137,7 +158,7 @@ export default function DeveloperDashboard() {
             <div className="developer-list">
               {items.map((item, index) => {
                 const draft = drafts[item.id] ?? { title: item.title, description: item.description };
-                return <article key={item.id}><div className="developer-item-image"><img src={item.image_url} alt={item.title} /><span>{String(index + 1).padStart(2, "0")}</span></div><div className="developer-item-fields"><label>Heading <small>{draft.title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={draft.title} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, title: event.target.value } }))} /></label><label>Description <small>{draft.description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={draft.description} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, description: event.target.value } }))} /></label><div><button type="button" className="developer-save" onClick={() => void saveItem(item)} disabled={busy === `save-${item.id}`}>{busy === `save-${item.id}` ? "Saving…" : "Save changes"}</button><button type="button" className="developer-delete" onClick={() => void removeItem(item)} disabled={busy === `delete-${item.id}`}>{busy === `delete-${item.id}` ? "Removing…" : "Remove image"}</button></div></div></article>;
+                return <article key={item.id}><div className="developer-item-image"><img src={item.image_url} alt={item.title} /><span>{String(index + 1).padStart(2, "0")}</span></div><div className="developer-item-fields"><label>Heading <small>{draft.title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={draft.title} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, title: event.target.value } }))} /></label><label>Description <small>{draft.description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={draft.description} onChange={(event) => setDrafts((current) => ({ ...current, [item.id]: { ...draft, description: event.target.value } }))} /></label><div className="developer-item-actions"><button type="button" className="developer-move" onClick={() => void moveItem(index, -1)} disabled={index === 0 || busy !== null} aria-label={`Move ${item.title} up`}>↑ Move up</button><button type="button" className="developer-move" onClick={() => void moveItem(index, 1)} disabled={index === items.length - 1 || busy !== null} aria-label={`Move ${item.title} down`}>↓ Move down</button><button type="button" className="developer-save" onClick={() => void saveItem(item)} disabled={busy === `save-${item.id}`}>{busy === `save-${item.id}` ? "Saving…" : "Save changes"}</button><button type="button" className="developer-delete" onClick={() => void removeItem(item)} disabled={busy === `delete-${item.id}`}>{busy === `delete-${item.id}` ? "Removing…" : "Remove image"}</button></div></div></article>;
               })}
             </div>
             </>}
