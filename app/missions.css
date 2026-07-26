@@ -1,11 +1,11 @@
 .missions-site,.mission-page,.mission-redirect { min-height: 100vh; background: #07080a; color: #f5f2f3; }
 .missions-site .nav-shell,.mission-page .nav-shell { transform: translateX(-50%); }
 .missions-site .nav-links a::after,.mission-page .nav-links a::after { background: linear-gradient(90deg,#5c78ef,#72dbff); }
-.mission-page .mission-marquee { height: clamp(132px,12vw,176px); background: linear-gradient(90deg,#06070a,#0c0e14 48%,#06070a); border-color: rgba(123,151,255,.18); }
-.mission-page .mission-marquee .mission-marquee-track { width: max-content; min-width: 200vw; display: flex; align-items: center; white-space: nowrap; color: #f2f4fb; font-size: clamp(38px,5.3vw,78px); font-weight: 720; line-height: 1; letter-spacing: -.045em; text-transform: uppercase; animation: mission-marquee-x 36s linear infinite; will-change: transform; }
+.mission-page .mission-marquee { height: 100px; background: #06070a; border-color: rgba(255,255,255,.08); }
+.mission-page .mission-marquee .mission-marquee-track { width: max-content; min-width: 200vw; display: flex; align-items: center; white-space: nowrap; color: #77747a; font-size: 12px; font-weight: 850; line-height: 1; letter-spacing: .32em; text-transform: uppercase; animation: mission-marquee-x 36s linear infinite; will-change: transform; }
 .mission-page .mission-marquee .mission-marquee-group { min-width: 100vw; flex: 0 0 auto; display: flex; align-items: center; }
 .mission-page .mission-marquee .mission-marquee-item { flex: 0 0 auto; display: inline-flex; align-items: center; }
-.mission-page .mission-marquee .mission-marquee-item i { width: clamp(9px,1vw,14px); height: clamp(9px,1vw,14px); margin: 0 clamp(34px,5vw,82px); border-radius: 50%; background: #6f8cff; box-shadow: 0 0 24px rgba(111,140,255,.76); color: transparent; font-size: 0; }
+.mission-page .mission-marquee .mission-marquee-item i { width: 4px; height: 4px; margin: 0 clamp(28px,3.2vw,52px); border-radius: 50%; background: #6f8cff; box-shadow: 0 0 10px rgba(111,140,255,.64); color: transparent; font-size: 0; }
 @keyframes mission-marquee-x { to { transform: translateX(-50%); } }
 .missions-hero { min-height: 850px; height: 100svh; position: relative; overflow: hidden; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.08); background: #040507; }
 .missions-hero-image { position: absolute; inset: 0; background-image: linear-gradient(90deg,rgba(3,4,7,.98) 2%,rgba(3,4,7,.87) 36%,rgba(3,4,7,.34) 65%,rgba(3,4,7,.12)),linear-gradient(0deg,#07080a,transparent 43%),url('/assets/characters/ada-wong/ada-15.png'); background-size: cover; background-position: center 38%; filter: saturate(.75) brightness(.72); }
