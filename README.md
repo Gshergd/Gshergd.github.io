@@ -15,6 +15,7 @@ The archive will appear at:
 - `https://YOUR-USERNAME.github.io/`
 - `https://YOUR-USERNAME.github.io/ada-wong/`
 - `https://YOUR-USERNAME.github.io/gallery/`
+- `https://YOUR-USERNAME.github.io/forum/`
 - `https://YOUR-USERNAME.github.io/developer/`
 
 ## Local development

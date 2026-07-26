@@ -259,7 +259,7 @@ footer { width: 100%; border-top: 1px solid rgba(255,255,255,.1); padding: 72px 
 .not-found-page { min-height: 100svh; position: relative; overflow: hidden; display: flex; flex-direction: column; background: #050608; }
 .not-found-nav { transform: translateX(-50%); }
 .not-found-label { justify-self: center; color: #8b888d; font-size: 9px; font-weight: 820; letter-spacing: .26em; }
-.not-found-backdrop { position: absolute; inset: 0; background-image: linear-gradient(90deg,rgba(4,5,7,.97),rgba(4,5,7,.74) 45%,rgba(4,5,7,.32)),linear-gradient(0deg,#050608,transparent 46%),url('/assets/characters/ada-wong/ada-11.png'); background-size: cover; background-position: 61% center; opacity: .72; }
+.not-found-backdrop { position: absolute; inset: 0; background-image: linear-gradient(90deg,rgba(4,5,7,.97),rgba(4,5,7,.74) 45%,rgba(4,5,7,.32)),linear-gradient(0deg,#050608,transparent 46%),url('/assets/portfolio/not-found.png'); background-size: cover; background-position: 61% center; opacity: .72; }
 .archive-index-backdrop { background-image: linear-gradient(90deg,rgba(4,5,7,.98),rgba(4,5,7,.78) 48%,rgba(4,5,7,.4)),linear-gradient(0deg,#050608,transparent 50%),url('/assets/characters/ada-wong/ada-15.png'); background-position: 64% center; }
 .archive-index-content { max-width: 1200px; }
 .archive-index-code { margin: 0 0 16px; color: rgba(255,255,255,.1); font-size: clamp(90px,14vw,190px); font-weight: 850; line-height: .72; letter-spacing: -.08em; }
