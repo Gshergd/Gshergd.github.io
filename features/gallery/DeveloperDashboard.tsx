@@ -4,7 +4,6 @@ import { useEffect, useState, type FormEvent } from "react";
 import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
 import MissionManager from "@/features/missions/MissionManager";
 import {
-  OWNER_EMAIL,
   consumeOwnerMagicLink,
   createGalleryItem,
   deleteGalleryItem,
@@ -68,7 +67,7 @@ export default function DeveloperDashboard() {
     try {
       await requestOwnerMagicLink();
       setLinkSent(true);
-      setMessage(`A secure sign-in link was sent to ${OWNER_EMAIL}. Open it to return here automatically.`);
+      setMessage("A secure sign-in link has been sent. Open it to enter automatically.");
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "The secure sign-in link could not be sent.");
     }
@@ -156,19 +155,22 @@ export default function DeveloperDashboard() {
     <main className="developer-site">
       <UniversalHeader />
 
-      <section className="developer-hero"><div><p className="eyebrow">PRIVATE CONTROL ROOM</p><h1>Archive<br />Developer.</h1><p>Manage the gallery and build complete mission pages from locked cinematic widgets. Access remains restricted to one verified email address.</p><span><i /> MAGIC LINK AUTHENTICATION</span></div></section>
+      {signedIn && <section className="developer-hero"><div><p className="eyebrow">PRIVATE CONTROL ROOM // ACCESS GRANTED</p><h1>Welcome<br />Sir.</h1><p>Manage the gallery and build complete mission pages from locked cinematic widgets.</p><span><i /> SECURE OWNER SESSION</span></div></section>}
 
-      <section className="developer-content">
+      <section className={signedIn ? "developer-content" : "developer-login-content"}>
         {checking ? <div className="developer-loading">Checking owner session…</div> : !signedIn ? (
-          <div className="developer-login-grid">
-            <article className="developer-login-card">
-              <p className="eyebrow">OWNER SIGN IN</p><h2>One email.<br />No password.</h2><p>The dashboard emails a one-time sign-in link. No password is stored by this site.</p>
-              <label>Authorized email<input value={OWNER_EMAIL} readOnly /></label>
-              <button className="developer-primary" type="button" onClick={sendMagicLink} disabled={busy === "link" || !isGalleryBackendConfigured}>{busy === "link" ? "Sending…" : linkSent ? "Send another secure link" : "Email me a secure link"}<span>→</span></button>
-              {linkSent && <p className="developer-security-note">Open the link from your email. It returns to this page and signs you in automatically.</p>}
-              {message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}
-            </article>
-            <article className="developer-setup-card"><p className="eyebrow">ONE-TIME SETUP</p><h2>{isGalleryBackendConfigured ? "Backend connected." : "Connect the gallery backend."}</h2><p>GitHub Pages is static, so secure authentication and persistent image storage live in Supabase. The repository includes the complete SQL policy file and an environment template.</p><ol><li>Create a free Supabase project.</li><li>Run <code>supabase/gallery-setup.sql</code> in its SQL editor.</li><li>In Authentication → URL Configuration, set the Site URL to <code>https://gshergd.github.io</code> and add <code>https://gshergd.github.io/developer/</code> as a redirect URL.</li><li>Leave the default Magic Link template unchanged. No custom SMTP is needed while <strong>{OWNER_EMAIL}</strong> is a member of the Supabase project team.</li><li>Add the project URL and publishable key to the GitHub Actions variables described in the README, then redeploy.</li></ol><p className="developer-security-note">The publishable key is designed to be visible. Row Level Security restricts every write to <strong>{OWNER_EMAIL}</strong>.</p></article>
+          <div className="developer-login-layout">
+            <div className="developer-login-panel">
+              <div className="developer-login-wrap">
+                <p className="eyebrow">RESTRICTED ARCHIVE // IDENTITY CHECK</p>
+                <h1>Return to<br />the control room.</h1>
+                <p className="developer-login-intro">A private channel for maintaining missions, arranging the visual archive, and keeping every published file in order.</p>
+                <button className="developer-primary" type="button" onClick={() => void sendMagicLink()} disabled={busy === "link" || !isGalleryBackendConfigured}>{busy === "link" ? "Sending…" : linkSent ? "Resend secure link" : "Email secure sign-in link"}<span>→</span></button>
+                {message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}
+                <div className="developer-login-meta"><a href="/">← Back to Legacy</a><span>Authorized access only</span></div>
+              </div>
+            </div>
+            <div className="developer-login-visual" aria-label="A woman in red inside a private evening venue"><div className="developer-login-shade" /><div className="developer-login-index" aria-hidden="true">02</div><div className="developer-login-caption"><span>PRIVATE ARCHIVE</span><strong>Every file waits behind one verified identity.</strong></div></div>
           </div>
         ) : (
           <div className="developer-dashboard">

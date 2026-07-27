@@ -64,9 +64,7 @@ body::after {
 .nav-links a:hover, .nav-links a.active { color: #fff; }
 .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 .nav-action { justify-self: end; width: 38px; height: 38px; border-radius: 50%; background: #f7f6f3; color: #090a0c; display: grid; place-items: center; transform: translate(var(--mag-x,0),var(--mag-y,0)); transition: transform .18s ease; }
-.nav-action > span { width: 14px; height: 14px; position: relative; display: block; overflow: hidden; color: transparent; font-size: 0; }
-.nav-action > span::before,.nav-action > span::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 2px; border-radius: 2px; background: #090a0c; transform: translate(-50%,-50%); }
-.nav-action > span::after { transform: translate(-50%,-50%) rotate(90deg); }
+.nav-action > svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .menu-button { display: none; border: 0; background: transparent; font-size: 11px; text-transform: uppercase; letter-spacing: .14em; }
 
 .hero { min-height: 900px; height: 100svh; position: relative; display: flex; align-items: center; overflow: hidden; background: #050507; }

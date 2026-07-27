@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
-type ActiveLink = "legacy" | "missions" | "ada";
+type ActiveLink = "legacy" | "missions" | "gallery" | "ada";
 
 export function UniversalHeader({ active }: { active?: ActiveLink; intro?: boolean }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -27,10 +27,10 @@ export function UniversalHeader({ active }: { active?: ActiveLink; intro?: boole
       <nav className={menuOpen ? "nav-links open" : "nav-links"} aria-label="Primary navigation">
         <Link className={active === "legacy" ? "active" : undefined} href="/" onClick={closeMenu}>Legacy</Link>
         <Link className={active === "missions" ? "active" : undefined} href="/missions/" onClick={closeMenu}>Missions</Link>
-        <Link href="/gallery/" onClick={closeMenu}>Gallery</Link>
+        <Link className={active === "gallery" ? "active" : undefined} href="/gallery/" onClick={closeMenu}>Gallery</Link>
         <a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer" onClick={closeMenu}>Official</a>
       </nav>
-      <Link className="nav-action" href="/forum/" aria-label="Open the forum"><span>+</span></Link>
+      <Link className="nav-action" href="/forum/" aria-label="Open the forum"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v11h-15z" /><path d="m5 7 7 5 7-5" /></svg></Link>
       <button className="menu-button" type="button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>Menu</button>
     </header>
   );

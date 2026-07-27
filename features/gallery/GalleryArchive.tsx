@@ -58,7 +58,7 @@ export default function GalleryArchive() {
 
   return (
     <main className="gallery-site">
-      <UniversalHeader />
+      <UniversalHeader active="gallery" />
 
       <section className="gallery-hero">
         <div className="gallery-hero-image" />

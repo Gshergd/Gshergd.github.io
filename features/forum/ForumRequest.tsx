@@ -23,10 +23,6 @@ export default function ForumRequest() {
       <section className="forum-layout" aria-labelledby="forum-title">
         <div className="forum-panel">
           <div className="forum-form-wrap">
-            <div className="forum-signal" aria-hidden="true">
-              <img src="/assets/brand/secretary-mark.png" alt="" />
-            </div>
-
             <p className="eyebrow">FORUM REQUEST // OPEN CHANNEL</p>
             <h1 id="forum-title">Start a conversation.</h1>
             <p className="forum-intro">Send the details once. I&apos;ll read the request, understand what you need, and continue the conversation directly.</p>

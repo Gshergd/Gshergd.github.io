@@ -253,7 +253,7 @@ export default function LuvinskiPortfolio() {
           <a href="/gallery/" onClick={() => setMenuOpen(false)}>Gallery</a>
           <a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>Official</a>
         </nav>
-        <a className="nav-action" href="/forum/" aria-label="Open the forum"><span>+</span></a>
+        <a className="nav-action" href="/forum/" aria-label="Open the forum"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 6.5h15v11h-15z" /><path d="m5 7 7 5 7-5" /></svg></a>
         <button className="menu-button" onClick={() => setMenuOpen((value) => !value)} aria-label="Toggle menu" aria-expanded={menuOpen}>Menu</button>
       </header>
 

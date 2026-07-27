@@ -117,7 +117,7 @@ function clearAuthFragment() {
 }
 
 export async function requestOwnerMagicLink() {
-  if (!isGalleryBackendConfigured) throw new Error("Connect Supabase first; setup instructions are shown below.");
+  if (!isGalleryBackendConfigured) throw new Error("The private access service is currently unavailable.");
   const redirectTo = encodeURIComponent(getOwnerRedirectUrl());
   const response = await fetch(`${supabaseUrl}/auth/v1/otp?redirect_to=${redirectTo}`, {
     method: "POST",

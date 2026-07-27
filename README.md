@@ -47,7 +47,9 @@ gallery records, and uploaded image storage required by `/developer/`.
    `https://gshergd.github.io` and add the exact redirect URL
    `https://gshergd.github.io/developer/`.
 3. Keep the Email provider enabled and leave Supabase's default **Magic Link** email template
-   unchanged. The default mailer can send only to members of the Supabase project team, so make
+   unchanged. The private login never displays the owner email; opening the emailed button returns
+   to `/developer/` and signs the owner in automatically. The default mailer can send only to members
+   of the Supabase project team, so make
    sure `dikshitaggarwal007@gmail.com` is listed in the organization's team settings. It is also
    rate-limited, which is fine for this private owner dashboard; custom SMTP can be added later if
    the login is opened to other people.
