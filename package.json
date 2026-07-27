@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "gallery:sync": "node scripts/sync-gallery-images.mjs prepare",
     "start": "next start",
     "lint": "eslint . --ignore-pattern .next --ignore-pattern out"
   },
@@ -23,6 +24,7 @@
     "@types/node": "22.19.19",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
+    "sharp": "0.34.5",
     "tailwindcss": "4.2.1",
     "typescript": "5.9.3"
   },

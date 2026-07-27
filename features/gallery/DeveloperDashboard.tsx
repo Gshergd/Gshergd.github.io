@@ -11,6 +11,7 @@ import {
   fetchGalleryItems,
   getOwnerSession,
   isGalleryBackendConfigured,
+  requestGalleryGithubSync,
   requestOwnerMagicLink,
   signOutOwner,
   updateGalleryItem,
@@ -86,9 +87,25 @@ export default function DeveloperDashboard() {
       setTitle(""); setDescription(""); setFile(null);
       const input = document.getElementById("gallery-file") as HTMLInputElement | null;
       if (input) input.value = "";
-      await loadItems(); setMessage("Image published to the gallery.");
+      await loadItems();
+      try {
+        const sync = await requestGalleryGithubSync();
+        setMessage(sync.queued ? "Image published. Its GitHub archive has been requested." : sync.message);
+      } catch {
+        setMessage("Image published through Supabase. Use Update GitHub to retry its permanent archive.");
+      }
     } catch (reason) { setError(reason instanceof Error ? reason.message : "The image could not be published."); }
     finally { setBusy(null); }
+  };
+
+  const syncGallery = async () => {
+    setBusy("sync-gallery"); setError(null); setMessage(null);
+    try {
+      const result = await requestGalleryGithubSync();
+      setMessage(result.message);
+    } catch (reason) {
+      setError(reason instanceof Error ? reason.message : "The GitHub gallery update could not be requested.");
+    } finally { setBusy(null); }
   };
 
   const saveItem = async (item: GalleryItem) => {
@@ -103,7 +120,12 @@ export default function DeveloperDashboard() {
   const removeItem = async (item: GalleryItem) => {
     if (!window.confirm(`Remove “${item.title}” from the public gallery? This cannot be undone.`)) return;
     setBusy(`delete-${item.id}`); setError(null); setMessage(null);
-    try { await deleteGalleryItem(item); await loadItems(); setMessage(`Removed “${item.title}”.`); }
+    try {
+      await deleteGalleryItem(item);
+      await loadItems();
+      try { await requestGalleryGithubSync(true); } catch { /* The next manual sync can retry cleanup. */ }
+      setMessage(`Removed “${item.title}”.`);
+    }
     catch (reason) { setError(reason instanceof Error ? reason.message : "The image could not be removed."); }
     finally { setBusy(null); }
   };
@@ -152,7 +174,7 @@ export default function DeveloperDashboard() {
           <div className="developer-dashboard">
             <div className="developer-workspace-tabs" role="tablist" aria-label="Developer workspace"><button type="button" role="tab" aria-selected={workspace === "missions"} className={workspace === "missions" ? "active" : ""} onClick={() => setWorkspace("missions")}><span>01</span>Mission Builder</button><button type="button" role="tab" aria-selected={workspace === "gallery"} className={workspace === "gallery" ? "active" : ""} onClick={() => setWorkspace("gallery")}><span>02</span>Gallery Manager</button></div>
             {workspace === "missions" ? <MissionManager /> : <>
-            <div className="developer-dashboard-head"><div><p className="eyebrow">OWNER SESSION ACTIVE</p><h2>Manage the collection.</h2></div><div className="developer-session-actions"><span>{items.length} PUBLISHED IMAGES</span><button type="button" onClick={logOut}>Sign out</button></div></div>
+            <div className="developer-dashboard-head"><div><p className="eyebrow">OWNER SESSION ACTIVE</p><h2>Manage the collection.</h2></div><div className="developer-session-actions"><span>{items.length} PUBLISHED IMAGES</span><button className="github-sync" type="button" onClick={() => void syncGallery()} disabled={busy !== null}>{busy === "sync-gallery" ? "Checking…" : "Update GitHub"}</button><button type="button" onClick={logOut} disabled={busy !== null}>Sign out</button></div></div>
             {message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}
             <form className="developer-add-card" onSubmit={addItem}><div><p className="eyebrow">ADD IMAGE</p><h3>Publish a new gallery entry.</h3><p>JPG, PNG, or WebP. Maximum file size: 10 MB.</p></div><label className="developer-file">Image<input id="gallery-file" type="file" accept="image/jpeg,image/png,image/webp" onChange={(event) => setFile(event.target.files?.[0] ?? null)} required /><span>{file?.name || "Choose image"}</span></label><label>Heading <small>{title.length}/{GALLERY_TITLE_LIMIT}</small><input maxLength={GALLERY_TITLE_LIMIT} value={title} onChange={(event) => setTitle(event.target.value)} placeholder="A short, clear heading" required /></label><label>Description <small>{description.length}/{GALLERY_DESCRIPTION_LIMIT}</small><textarea maxLength={GALLERY_DESCRIPTION_LIMIT} value={description} onChange={(event) => setDescription(event.target.value)} placeholder="What is this image?" required /></label><button className="developer-primary" disabled={busy === "add"}>{busy === "add" ? "Publishing…" : "Publish image"}<span>↗</span></button></form>
             <div className="developer-list">

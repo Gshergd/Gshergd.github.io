@@ -54,7 +54,7 @@ gallery records, and uploaded image storage required by `/developer/`.
 4. In the GitHub repository, add the Actions variable `NEXT_PUBLIC_SUPABASE_URL` containing
    the project URL.
 5. Add the Actions secret `NEXT_PUBLIC_SUPABASE_ANON_KEY` containing the project's publishable
-   (or legacy anon) key. Never use the service-role key in this site.
+   (or legacy anon) key. Never expose the service-role key as a public environment variable.
 6. Push to `main`. The Pages workflow injects both values during the static build.
 
 For local testing, copy `.env.example` to `.env.local`, replace the two Supabase placeholders,
@@ -63,6 +63,26 @@ add `http://localhost:3000/developer/` to Supabase's redirect allowlist, then ru
 
 Without these values the original gallery is still visible, while `/developer/` shows setup
 instructions instead of pretending that browser-only edits are persistent.
+
+### Permanent GitHub archive for gallery images
+
+Gallery uploads appear immediately through Supabase, then the gallery-only archive workflow copies
+them into `public/assets/gallery/`, deploys the new asset, replaces the database URL with the GitHub
+Pages URL, and removes the temporary Supabase Storage object. The **Update GitHub** button checks all
+existing gallery records and queues only images that have not been archived; when everything is
+already hosted by GitHub it performs no deployment.
+
+1. In GitHub, add an Actions secret named `SUPABASE_SERVICE_ROLE_KEY` containing the Supabase
+   project's service-role key. Keep it only in GitHub Actions; never prefix it with `NEXT_PUBLIC_`
+   or place it in browser code.
+2. Deploy the gallery sync Edge Function from the linked project:
+
+   ```bash
+   npx supabase@latest functions deploy sync-gallery
+   ```
+
+The function reuses the existing `GITHUB_ACTIONS_TOKEN` and `GITHUB_REPOSITORY` Supabase secrets.
+This process applies only to gallery images; mission images and mission publishing are unchanged.
 
 ## Connect the Mission Builder
 

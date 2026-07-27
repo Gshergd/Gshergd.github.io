@@ -76,6 +76,9 @@
 .developer-session-actions > span { color: #8296df; font-size: 10px; font-weight: 850; letter-spacing: .18em; }
 .developer-session-actions > button { min-height: 38px; padding: 0 15px; border: 1px solid rgba(255,255,255,.16); border-radius: 9px; background: #101116; color: #f5f2ef; font-weight: 750; cursor: pointer; }
 .developer-session-actions > button:hover { border-color: rgba(229,46,75,.75); background: #171217; }
+.developer-session-actions > button:disabled { cursor: wait; opacity: .55; }
+.developer-session-actions > .github-sync { border-color: rgba(100,135,255,.48); color: #e8edff; }
+.developer-session-actions > .github-sync:hover:not(:disabled) { border-color: #6487ff; background: rgba(100,135,255,.14); }
 
 .developer-hero { min-height: 600px; position: relative; display: flex; align-items: center; overflow: hidden; background-image: linear-gradient(90deg,rgba(5,6,9,.97),rgba(5,6,9,.68) 50%,rgba(5,6,9,.24)),linear-gradient(0deg,#07080a,transparent 50%),url('/assets/portfolio/hero-legacy.webp'); background-size: cover; background-position: center; }
 .developer-hero > div { width: min(1120px,calc(100% - 48px)); margin: auto; padding-top: 70px; }

@@ -207,6 +207,22 @@ export async function createGalleryItem(input: Omit<GalleryItem, "id" | "created
   return (await response.json() as GalleryItem[])[0];
 }
 
+export type GalleryGithubSyncResult = {
+  ok: boolean;
+  queued: boolean;
+  count: number;
+  message: string;
+};
+
+export async function requestGalleryGithubSync(force = false) {
+  const response = await ownerFetch("/functions/v1/sync-gallery", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ force }),
+  });
+  return response.json() as Promise<GalleryGithubSyncResult>;
+}
+
 export async function updateGalleryItem(id: string, input: Pick<GalleryItem, "title" | "description">) {
   await ownerFetch(`/rest/v1/gallery_items?id=eq.${encodeURIComponent(id)}`, {
     method: "PATCH",
