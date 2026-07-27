@@ -102,7 +102,20 @@ export default function MissionManager() {
   const remove = async (mission: MissionRecord) => {
     if (mission.id === staticAdaMission.id) { setError("Ada Wong is the built-in mission and cannot be deleted. You can fully edit and republish it."); return; }
     if (!window.confirm(`Delete “${mission.name}”? This cannot be undone.`)) return;
-    setBusy(`delete-${mission.id}`); try { await deleteMission(mission); await reload(); setMessage(`Deleted “${mission.name}”.`); } catch (reason) { setError(reason instanceof Error ? reason.message : "The mission could not be deleted."); } finally { setBusy(null); }
+    setBusy(`delete-${mission.id}`); setError(null); setMessage(null);
+    try {
+      await deleteMission(mission);
+      await reload();
+      if (mission.status === "published") {
+        try {
+          await requestMissionDeployment();
+          setMessage(`Deleted “${mission.name}”. A fresh GitHub Pages build has been requested to remove its public URL.`);
+        } catch {
+          setMessage(`Deleted “${mission.name}”. Push the repository once to remove its previously published URL from GitHub Pages.`);
+        }
+      } else setMessage(`Deleted “${mission.name}”.`);
+    } catch (reason) { setError(reason instanceof Error ? reason.message : "The mission could not be deleted."); }
+    finally { setBusy(null); }
   };
 
   const upload = async (file: File, done: (url: string, storagePath?: string) => void) => {
@@ -120,4 +133,3 @@ export default function MissionManager() {
 
   return <section className="mission-builder"><div className="mission-builder-bar"><button type="button" onClick={() => { setDraft(null); setSelected(null); }}>← All missions</button><div><span className={`mission-status ${draft.status}`}>{draft.status}</span><strong>{draft.name}</strong><small>/missions/{draft.slug}/</small></div><div><button type="button" onClick={() => void persist("draft")} disabled={Boolean(busy)}>Save draft</button><button className="publish" type="button" onClick={() => void persist("published")} disabled={Boolean(busy)}>{busy === "published" ? "Publishing…" : "Publish"}</button></div></div>{message && <p className="developer-message success">{message}</p>}{error && <p className="developer-message error">{error}</p>}<div className="mission-builder-layout"><aside className="mission-block-library"><p className="eyebrow">WIDGETS</p><h3>Add section</h3>{(Object.keys(blockNames) as MissionBlock["type"][]).map((type) => <button type="button" key={type} onClick={() => { const block = createMissionBlock(type); setDraft({ ...draft, blocks: [...draft.blocks, block] }); setSelected(block.id); }}>{blockNames[type]}<span>+</span></button>)}<hr /><p className="eyebrow">PAGE ORDER</p><button type="button" className={!selected ? "active" : ""} onClick={() => setSelected(null)}>Hero & page settings</button>{draft.blocks.map((block, index) => <div key={block.id} draggable onDragStart={() => setDragIndex(index)} onDragOver={(event) => event.preventDefault()} onDrop={() => { if (dragIndex !== null) moveBlock(dragIndex, index); setDragIndex(null); }} className={selected === block.id ? "active" : ""}><button type="button" onClick={() => setSelected(block.id)}>{String(index + 1).padStart(2, "0")} {blockNames[block.type]}</button><span><button type="button" aria-label="Move up" onClick={() => moveBlock(index, index - 1)}>↑</button><button type="button" aria-label="Move down" onClick={() => moveBlock(index, index + 1)}>↓</button><button type="button" aria-label="Duplicate" onClick={() => { const copy = { ...structuredClone(block), id: createId(block.type) } as MissionBlock; const blocks = [...draft.blocks]; blocks.splice(index + 1, 0, copy); setDraft({ ...draft, blocks }); setSelected(copy.id); }}>⧉</button><button type="button" aria-label="Remove" onClick={() => { setDraft({ ...draft, blocks: draft.blocks.filter((item) => item.id !== block.id) }); setSelected(null); }}>×</button></span></div>)}</aside><div className="mission-builder-canvas"><div className="mission-canvas-toolbar"><span>LIVE STRUCTURE PREVIEW</span><small>Click any section to edit it</small></div><CanvasPreview mission={draft} selected={selected} onSelect={setSelected} /></div><Inspector mission={draft} selected={selectedBlock?.id ?? null} updateMission={(patch) => setDraft({ ...draft, ...patch })} updateBlock={updateBlock} upload={upload} /></div></section>;
 }
-

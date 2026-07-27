@@ -8,7 +8,7 @@
 .mission-page .mission-marquee .mission-marquee-item i { width: 4px; height: 4px; margin: 0 clamp(28px,3.2vw,52px); border-radius: 50%; background: #6f8cff; box-shadow: 0 0 10px rgba(111,140,255,.64); color: transparent; font-size: 0; }
 @keyframes mission-marquee-x { to { transform: translateX(-50%); } }
 .missions-hero { min-height: 850px; height: 100svh; position: relative; overflow: hidden; display: flex; align-items: center; border-bottom: 1px solid rgba(255,255,255,.08); background: #040507; }
-.missions-hero-image { position: absolute; inset: 0; background-image: linear-gradient(90deg,rgba(3,4,7,.98) 2%,rgba(3,4,7,.87) 36%,rgba(3,4,7,.34) 65%,rgba(3,4,7,.12)),linear-gradient(0deg,#07080a,transparent 43%),url('/assets/characters/ada-wong/ada-15.png'); background-size: cover; background-position: center 38%; filter: saturate(.75) brightness(.72); }
+.missions-hero-image { position: absolute; inset: 0; background-image: linear-gradient(90deg,rgba(3,4,7,.98) 2%,rgba(3,4,7,.87) 36%,rgba(3,4,7,.34) 65%,rgba(3,4,7,.12)),linear-gradient(0deg,#07080a,transparent 43%),url('/assets/portfolio/missions-hero.webp'); background-size: cover; background-position: center 38%; filter: saturate(.75) brightness(.72); }
 .missions-hero-grid { position: absolute; inset: 42% 0 0; opacity: .1; background-image: linear-gradient(rgba(255,255,255,.18) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.18) 1px,transparent 1px); background-size: 80px 80px; mask-image: linear-gradient(transparent,#000); }
 .missions-hero-copy { width: min(1200px,calc(100% - 48px)); margin: auto; padding: 110px 0 60px; position: relative; z-index: 2; }
 .missions-hero h1 { max-width: 880px; margin: 0; font-size: clamp(80px,10.5vw,152px); line-height: .78; letter-spacing: -.078em; white-space: pre-line; }
@@ -148,7 +148,7 @@
 }
 @media (max-width: 650px) {
   .missions-hero { min-height: 760px; height: 100svh; align-items: flex-end; }
-  .missions-hero-image { background-image: linear-gradient(0deg,#07080a 2%,rgba(3,4,7,.74) 62%,rgba(3,4,7,.18)),url('/assets/characters/ada-wong/ada-15.png'); background-position: 60% center; }
+  .missions-hero-image { background-image: linear-gradient(0deg,#07080a 2%,rgba(3,4,7,.74) 62%,rgba(3,4,7,.18)),url('/assets/portfolio/missions-hero.webp'); background-position: 60% center; }
   .missions-hero-copy { width: calc(100% - 34px); padding: 130px 0 68px; }
   .missions-hero h1 { font-size: clamp(65px,22vw,96px); }
   .missions-hero-copy > p:not(.eyebrow) { font-size: 14px; }

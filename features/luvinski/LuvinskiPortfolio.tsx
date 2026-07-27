@@ -125,8 +125,19 @@ const faqs = [
   { q: "What kind of work lives here?", a: "Discord automation, websites, documentation, infrastructure, community platforms, video work, Unity prototypes, Minecraft experiments, visual studies, and the character archives that make the portfolio feel like a library instead of a résumé." },
   { q: "Why are documentation and status pages included?", a: "Because the quiet parts are part of the product. Clear documentation, visible infrastructure health, and thoughtful onboarding are what make ambitious systems dependable for real people." },
   { q: "Is game development still part of the plan?", a: "Yes. The path has moved through communities, web products, and AI-assisted development, but the original ambition remains: return to games with better tools, stronger judgment, and more realistic ways to finish." },
-  { q: "How can I reach the developer?", a: "The Secretary is the main public presence and developer contact hub. Project cards throughout this archive link directly to their live destinations and official channels." },
+  { q: "How can I reach the developer?", a: "The forum is the single contact channel for conversations, service requests, and anything you want to discuss. Project cards throughout this archive still link directly to their live destinations." },
 ];
+
+const sovereignLocation: GalleryItem = {
+  id: "sovereign-building-location",
+  title: "The Sovereign Building",
+  description: "#473, Sector 68, Block 15, Pripyal City, Minecraft",
+  image_url: "/assets/portfolio/project-10.webp",
+  storage_path: null,
+  sort_order: 0,
+};
+
+const officialDiscordServer = "https://discord.gg/cDmaWfHnm4";
 
 export default function LuvinskiPortfolio() {
   const { items: galleryItems } = useGalleryItems();
@@ -352,11 +363,11 @@ export default function LuvinskiPortfolio() {
         <div className="luv-contact-panel" data-reveal>
           <div className="luv-contact-backdrop" />
           <div className="luv-contact-copy">
-            <p className="eyebrow">OFFICIAL PRESENCE & DEVELOPER CONTACT</p>
+            <p className="eyebrow">LOCATION FILE</p>
             <h2>The Sovereign Building.</h2>
             <address>The Sovereign Building, #473, Sector 68, Block 15,<br />Pripyal City, Minecraft</address>
-            <p>The Secretary is the official presence and developer contact hub — the best place to follow the ecosystem, find documentation, or start a conversation.</p>
-            <div className="button-row"><a className="button primary" href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Visit The Secretary ↗</a><a className="button dark" href="https://thesecretary.xyz/documentation" target="_blank" rel="noreferrer">Read documentation</a></div>
+            <p>A preserved address from the archive: part headquarters, part landmark, and the place this chapter of the story calls home.</p>
+            <div className="button-row"><button className="button primary" type="button" onClick={() => openFullscreen(sovereignLocation)}>View Location</button><a className="button dark" href={officialDiscordServer} target="_blank" rel="noreferrer">Directions</a></div>
           </div>
         </div>
       </section>
@@ -374,9 +385,9 @@ export default function LuvinskiPortfolio() {
         <div className="footer-grid">
           <div className="footer-brand"><div><span className="brand-mark brand-image"><img src="/assets/brand/secretary-mark.png" alt="" /></span><h3>Luvinski<small>PORTFOLIO LIBRARY</small></h3></div><p>An independent archive of systems, communities, visual experiments, game ambitions, and the work worth carrying forward.</p></div>
           <div><p className="eyebrow">EXPLORE</p><a href="#top">Legacy</a><a href="/missions/">Missions</a><a href="/gallery/">Gallery</a><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a></div>
-          <div><p className="eyebrow">CONTACT</p><p>The Secretary is the official public presence and developer contact hub.</p><a className="footer-cta" href="https://thesecretary.xyz/" target="_blank" rel="noreferrer"><span>↗</span> Open The Secretary</a></div>
+          <div><p className="eyebrow">CONTACT</p><p>The forum is the single contact channel for conversations, service requests, and anything you want to discuss.</p><a className="footer-cta" href="/forum/"><span>→</span> Open the forum</a></div>
         </div>
-        <div className="legal"><span>© 2026 The Secretary.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>
+        <div className="legal"><span>© 2026 Gshergd Luvinski.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>
       </footer>
 
       {detailView && (

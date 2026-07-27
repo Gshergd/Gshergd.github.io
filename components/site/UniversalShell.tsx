@@ -45,9 +45,9 @@ export function UniversalFooter() {
           <p>An independent archive of systems, communities, visual experiments, game ambitions, and the work worth carrying forward.</p>
         </div>
         <div><p className="eyebrow">EXPLORE</p><Link href="/">Legacy</Link><Link href="/missions/">Missions</Link><Link href="/gallery/">Gallery</Link><a href="https://thesecretary.xyz/" target="_blank" rel="noreferrer">Official</a></div>
-        <div><p className="eyebrow">CONTACT</p><p>The Secretary is the official public presence and developer contact hub.</p><a className="footer-cta" href="https://thesecretary.xyz/" target="_blank" rel="noreferrer"><span aria-hidden="true">&#8599;</span> Open The Secretary</a></div>
+        <div><p className="eyebrow">CONTACT</p><p>The forum is the single contact channel for conversations, service requests, and anything you want to discuss.</p><Link className="footer-cta" href="/forum/"><span aria-hidden="true">&#8594;</span> Open the forum</Link></div>
       </div>
-      <div className="legal"><span>&copy; 2026 The Secretary.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>
+      <div className="legal"><span>&copy; 2026 Gshergd Luvinski.</span><span>Built by Gshergd Luvinski.</span><span>From curiosity to useful systems.</span></div>
     </footer>
   );
 }

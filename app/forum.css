@@ -4,7 +4,9 @@
 .forum-panel { min-width: 0; position: relative; z-index: 2; display: grid; place-items: center; padding: 92px 9vw 38px 7vw; background: radial-gradient(circle at 18% 22%,rgba(161,15,40,.12),transparent 31%),#050608; }
 .forum-panel::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .055; background-image: linear-gradient(rgba(255,255,255,.15) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.15) 1px,transparent 1px); background-size: 68px 68px; mask-image: linear-gradient(90deg,#000,transparent 78%); }
 .forum-form-wrap { width: min(520px,100%); position: relative; z-index: 2; }
-.forum-signal { width: 58px; height: 58px; margin: 0 0 7px -7px; filter: drop-shadow(0 0 22px rgba(239,39,71,.25)); }
+.forum-signal { width: 52px; height: 52px; margin: 0 0 12px; position: relative; display: grid; place-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,.16); border-radius: 14px; background: linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.015)),#0c0d11; box-shadow: 0 16px 38px rgba(0,0,0,.32),inset 0 0 22px rgba(239,39,71,.06); }
+.forum-signal::before { content: ""; position: absolute; inset: 4px; border: 1px solid rgba(239,39,71,.28); border-radius: 10px; }
+.forum-signal img { width: 30px; height: 30px; position: relative; z-index: 1; object-fit: contain; filter: drop-shadow(0 5px 12px rgba(0,0,0,.5)); }
 .forum-form-wrap h1 { max-width: 520px; margin: 0; font-size: clamp(52px,5vw,72px); font-weight: 650; line-height: .86; letter-spacing: -.065em; }
 .forum-intro { max-width: 500px; margin: 17px 0 21px; color: #aaa7aa; font-size: 14px; line-height: 1.68; }
 .forum-form { display: grid; gap: 13px; }

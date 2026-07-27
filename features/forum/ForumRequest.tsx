@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import { UniversalFooter, UniversalHeader } from "@/components/site/UniversalShell";
-import { forumSendAnimation, forumSignalAnimation } from "./forumAnimations";
+import { forumSendAnimation } from "./forumAnimations";
 
 const FORMSUBMIT_URL = "https://formsubmit.co/dikshitaggarwal007@gmail.com";
 const RETURN_URL = "https://gshergd.github.io/forum/?submitted=true";
@@ -24,7 +24,7 @@ export default function ForumRequest() {
         <div className="forum-panel">
           <div className="forum-form-wrap">
             <div className="forum-signal" aria-hidden="true">
-              <Lottie animationData={forumSignalAnimation} loop autoplay />
+              <img src="/assets/brand/secretary-mark.png" alt="" />
             </div>
 
             <p className="eyebrow">FORUM REQUEST // OPEN CHANNEL</p>
