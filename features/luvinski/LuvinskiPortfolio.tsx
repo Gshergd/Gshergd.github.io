@@ -18,7 +18,7 @@ const projects = [
   {
     title: "The Secretary",
     type: "Discord platform",
-    stat: "40K+ users",
+    stat: "72K+ users",
     description: "The personal favourite: a multipurpose Discord management platform for moderation, tickets, automation, economy, AI interactions, and community operations.",
     href: "https://thesecretary.xyz/",
   },
@@ -41,7 +41,7 @@ const projects = [
     type: "Infrastructure",
     stat: "Live system health",
     description: "A transparent status surface for the services behind The Secretary, bringing uptime, incidents, and operational health into one place.",
-    href: "https://thesecretary-status.gt.tc/",
+    href: "https://hub.thesecretary.xyz/status/",
   },
   {
     title: "DikAgg007.in",
@@ -99,7 +99,28 @@ const projects = [
     description: "Short-form edits and cinematic experiments exploring pacing, presentation, game worlds, and the moments that become memorable after the screen goes dark.",
     href: "https://www.youtube.com/watch?v=_D5YlJ-Yvf0",
   },
-].map((project, index) => ({ ...project, image: `/assets/portfolio/project-${String(index + 1).padStart(2, "0")}.webp` }));
+  {
+    title: "Community",
+    type: "Community hub",
+    stat: "Connect and discover",
+    description: "The community home for The Secretary, bringing members, resources, and shared spaces together in one place.",
+    href: "https://hub.thesecretary.xyz/",
+  },
+  {
+    title: "Forums",
+    type: "Community discussions",
+    stat: "Join the conversation",
+    description: "The Secretary forums for conversations, questions, ideas, support, and community updates.",
+    href: "https://hub.thesecretary.xyz/forums/",
+  },
+].map((project, index) => ({
+  ...project,
+  image: index === 12
+    ? "/assets/portfolio/project-community.png"
+    : index === 13
+      ? "/assets/portfolio/project-forums.png"
+      : `/assets/portfolio/project-${String(index + 1).padStart(2, "0")}.webp`,
+}));
 
 const timeline = [
   { year: "2016", label: "Unity", title: "Started with impossible games", image: "/assets/portfolio/timeline-2016.webp", copy: "The first serious experiments began in Unity, driven by the hope of recreating huge open-world ideas and learning every system through trial, curiosity, and stubborn iteration." },
@@ -271,7 +292,7 @@ export default function LuvinskiPortfolio() {
             <a className="button secondary" href="#timeline">Read the timeline</a>
           </div>
           <div className="hero-stats intro-target intro-6">
-            <div><strong>40K+</strong><span>BOT USERS</span></div>
+            <div><strong>72K+</strong><span>BOT USERS</span></div>
             <div><strong>12</strong><span>DISCORD BOTS</span></div>
             <div><strong>2016</strong><span>FIRST BUILD</span></div>
           </div>
@@ -291,7 +312,7 @@ export default function LuvinskiPortfolio() {
       </section>
 
       <section className="section luv-work" id="work">
-        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Twelve doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
+        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Fourteen doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
         <div className="luv-project-grid">
           {projects.map((project, index) => (
             <button className={`luv-project-card luv-project-${index + 1}`} type="button" key={project.title} data-reveal onClick={() => openProject(project)} aria-haspopup="dialog" style={{ "--delay": `${(index % 3) * 70}ms` } as CSSProperties}>
@@ -307,7 +328,7 @@ export default function LuvinskiPortfolio() {
 
       <section className="section stat-section" aria-label="Portfolio statistics">
         <div className="stat-panel luv-stat-panel" data-reveal>
-          <div><strong>40K+</strong><span>PLATFORM USERS</span></div>
+          <div><strong>72K+</strong><span>PLATFORM USERS</span></div>
           <div><strong>12</strong><span>DISCORD BOTS</span></div>
           <div><strong>10+</strong><span>PUBLIC DESTINATIONS</span></div>
           <div><strong>∞</strong><span>NEXT IDEAS</span></div>
