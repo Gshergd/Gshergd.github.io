@@ -113,13 +113,29 @@ const projects = [
     description: "The Secretary forums for conversations, questions, ideas, support, and community updates.",
     href: "https://hub.thesecretary.xyz/forums/",
   },
+  {
+    title: "serg",
+    type: "Link shortener",
+    stat: "Five-character shortcuts",
+    description: "A private link studio for creating and managing five-character alphanumeric shortcuts on ser.gt.tc. The dashboard lives on GitHub Pages, with owner-only access and public redirects.",
+    href: "https://gshergd.github.io/serg/",
+    image: "/assets/portfolio/project-serg.webp",
+  },
+  {
+    title: "ipgeo",
+    type: "Geolocation terminal",
+    stat: "TF141 field interface",
+    description: "An interactive Task Force 141-inspired map terminal for IP and street-address lookups, satellite imagery, waypoints, and cinematic field tools. IP locations are approximate.",
+    href: "https://gshergd.github.io/IP-Tracer/",
+    image: "/assets/portfolio/project-ipgeo.webp",
+  },
 ].map((project, index) => ({
   ...project,
-  image: index === 12
+  image: project.image ?? (index === 12
     ? "/assets/portfolio/project-community.png"
     : index === 13
       ? "/assets/portfolio/project-forums.png"
-      : `/assets/portfolio/project-${String(index + 1).padStart(2, "0")}.webp`,
+      : `/assets/portfolio/project-${String(index + 1).padStart(2, "0")}.webp`),
 }));
 
 const timeline = [
@@ -312,7 +328,7 @@ export default function LuvinskiPortfolio() {
       </section>
 
       <section className="section luv-work" id="work">
-        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Fourteen doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
+        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Sixteen doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
         <div className="luv-project-grid">
           {projects.map((project, index) => (
             <button className={`luv-project-card luv-project-${index + 1}`} type="button" key={project.title} data-reveal onClick={() => openProject(project)} aria-haspopup="dialog" style={{ "--delay": `${(index % 3) * 70}ms` } as CSSProperties}>
