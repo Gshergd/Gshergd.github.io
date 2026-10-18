@@ -28,6 +28,7 @@
 .luv-project-card { grid-column: span 4; min-width: 0; padding: 0; position: relative; overflow: hidden; isolation: isolate; text-align: left; cursor: pointer; border: 1px solid rgba(255,255,255,.13); border-radius: 20px; background: #0b0c0f; transition: opacity .8s ease var(--delay,0ms),transform .8s ease var(--delay,0ms),border-color .25s ease,box-shadow .25s ease; }
 .luv-project-card:nth-child(1),.luv-project-card:nth-child(6),.luv-project-card:nth-child(11) { grid-column: span 8; }
 .luv-project-card:nth-child(2),.luv-project-card:nth-child(7),.luv-project-card:nth-child(12) { grid-column: span 4; }
+.luv-project-card:nth-child(n+13) { grid-column: span 6; }
 .luv-project-card img { width: 100%; height: 100%; display: block; object-fit: cover; filter: saturate(.74) brightness(.68); transition: filter .45s ease,transform .8s cubic-bezier(.2,.75,.25,1); }
 .luv-project-shade { position: absolute; inset: 0; background: linear-gradient(0deg,rgba(5,6,9,.97),rgba(5,6,9,.08) 78%),linear-gradient(90deg,rgba(5,6,9,.34),transparent); }
 .luv-project-card:hover { border-color: rgba(114,219,255,.38); box-shadow: 0 30px 70px -44px rgba(75,116,255,.75); }
