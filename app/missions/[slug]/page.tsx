@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const mission = await getPublishedMission(slug);
   if (!mission) return { title: "Mission not found" };
   return {
-    title: `${mission.name} — Mission Archive`, description: mission.excerpt,
+    title: `${mission.name} 〡 Mission Archive`, description: mission.excerpt,
     alternates: { canonical: `/missions/${mission.slug}/` },
-    openGraph: { title: `${mission.name} — Mission Archive`, description: mission.excerpt, url: `/missions/${mission.slug}/`, images: [{ url: mission.cover_url || mission.hero.image }], type: "website" },
-    twitter: { card: "summary_large_image", title: `${mission.name} — Mission Archive`, description: mission.excerpt, images: [mission.cover_url || mission.hero.image] },
+    openGraph: { title: `${mission.name} 〡 Mission Archive`, description: mission.excerpt, url: `/missions/${mission.slug}/`, images: [{ url: mission.cover_url || mission.hero.image }], type: "website" },
+    twitter: { card: "summary_large_image", title: `${mission.name} 〡 Mission Archive`, description: mission.excerpt, images: [mission.cover_url || mission.hero.image] },
   };
 }
 
