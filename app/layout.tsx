@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: "The Secretary Archives",
-    template: "%s | The Secretary Archives",
+    template: "%s 〡 The Secretary Archives",
   },
   description: "Cinematic fan archives devoted to unforgettable characters and their hidden histories.",
   icons: {
