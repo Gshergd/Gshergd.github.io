@@ -76,14 +76,14 @@ const projects = [
     type: "Unity project",
     stat: "Archived prototype",
     description: "A survival-game experiment from the Unity years. Development has ended, but the project remains part of the path that started everything.",
-    href: "https://gshergd.itch.io/zombies-vs-you",
+    href: "https://gshergd.github.io/ZombiesVsYou/",
   },
   {
     title: "Minecraft Mods",
     type: "Modding release",
-    stat: "Version 0.0.1",
-    description: "A small public release from years of experimenting with Minecraft worlds, custom ideas, and the joy of changing a familiar game by hand.",
-    href: "https://github.com/Gshergd/Minecraft-mods/releases/tag/V0.0.1",
+    stat: "Signs & flags",
+    description: "Custom Minecraft Java additions with downloadable Forge builds: dimensional acrylic signs and animated flags.",
+    href: "https://gshergd.github.io/Minecraft-mods/",
   },
   {
     title: "Documentation",
@@ -128,6 +128,14 @@ const projects = [
     description: "An interactive Task Force 141-inspired map terminal for IP and street-address lookups, satellite imagery, waypoints, and cinematic field tools. IP locations are approximate.",
     href: "https://gshergd.github.io/ipgeo/",
     image: "/assets/portfolio/project-geopolitical-ip.png",
+  },
+  {
+    title: "Chrome Extensions",
+    type: "Browser customization",
+    stat: "New Tab 2.6.0",
+    description: "A customizable new-tab experience with wallpapers, widgets, colours and shortcuts. Download the extension and follow the installation guide.",
+    href: "https://gshergd.github.io/Chrome-extensions/",
+    image: "/assets/portfolio/project-chrome-extensions.png",
   },
 ].map((project, index) => ({
   ...project,
@@ -328,7 +336,7 @@ export default function LuvinskiPortfolio() {
       </section>
 
       <section className="section luv-work" id="work">
-        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Sixteen doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
+        <div className="archive-head" data-reveal><div><p className="eyebrow">PROJECT DIRECTORY</p><h2>Systems, communities<br />& experiments.</h2></div><p>Seventeen doors into the work. Open any file for context, then continue to the live project, channel, or release.</p></div>
         <div className="luv-project-grid">
           {projects.map((project, index) => (
             <button className={`luv-project-card luv-project-${index + 1}`} type="button" key={project.title} data-reveal onClick={() => openProject(project)} aria-haspopup="dialog" style={{ "--delay": `${(index % 3) * 70}ms` } as CSSProperties}>
