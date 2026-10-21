@@ -151,3 +151,6 @@
   .luv-site .marquee div { animation: none; }
   .luv-project-card img,.luv-field-grid img,.luv-mission-grid img { transition: none; }
 }
+
+/* Keep the actual satellite-map preview legible inside its project card. */
+.luv-project-16 img,.luv-project-16:hover img { filter: none; }
