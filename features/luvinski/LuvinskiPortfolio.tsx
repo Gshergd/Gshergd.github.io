@@ -114,7 +114,7 @@ const projects = [
     href: "https://hub.thesecretary.xyz/forums/",
   },
   {
-    title: "serg",
+    title: "Serg Link Shortner",
     type: "Link shortener",
     stat: "Five-character shortcuts",
     description: "A private link studio for creating and managing five-character alphanumeric shortcuts on ser.gt.tc. The dashboard lives on GitHub Pages, with owner-only access and public redirects.",
@@ -122,12 +122,12 @@ const projects = [
     image: "/assets/portfolio/project-serg.webp",
   },
   {
-    title: "ipgeo",
+    title: "Geopolitical IP",
     type: "Geolocation terminal",
     stat: "TF141 field interface",
     description: "An interactive Task Force 141-inspired map terminal for IP and street-address lookups, satellite imagery, waypoints, and cinematic field tools. IP locations are approximate.",
-    href: "https://gshergd.github.io/IP-Tracer/",
-    image: "/assets/portfolio/project-ipgeo.webp",
+    href: "https://gshergd.github.io/ipgeo/",
+    image: "/assets/portfolio/project-geopolitical-ip.png",
   },
 ].map((project, index) => ({
   ...project,
