@@ -154,3 +154,6 @@
 
 /* Keep the actual satellite-map preview legible inside its project card. */
 .luv-project-16 img,.luv-project-16:hover img { filter: none; }
+
+.luv-project-card.luv-project-17 { grid-column: 1 / -1; }
+.luv-project-17 img,.luv-project-17:hover img { filter: none; }
